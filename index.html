@@ -15,8 +15,6 @@ body {
   margin: 0 auto;
   padding-bottom: 80px;
 }
-
-/* Header */
 .hdr {
   padding: 14px 16px 8px;
   display: flex;
@@ -35,8 +33,6 @@ body {
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
 }
-
-/* Stats */
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -52,8 +48,6 @@ body {
 }
 .stat-n { font-size: 20px; font-weight: 700; color: #39d353; }
 .stat-l { font-size: 10px; color: #8b949e; margin-top: 1px; }
-
-/* Tabs */
 .tabs {
   display: flex;
   border-bottom: 1px solid #21262d;
@@ -70,8 +64,6 @@ body {
   margin-bottom: -1px;
 }
 .tab.on { color: #e6edf3; border-bottom-color: #39d353; }
-
-/* Panes */
 .pane { display: none; padding: 14px 16px; }
 .pane.on { display: block; }
 .sec-lbl {
@@ -81,8 +73,6 @@ body {
   color: #8b949e;
   margin-bottom: 10px;
 }
-
-/* Habit grid */
 .hgrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -116,8 +106,15 @@ body {
   font-size: 8px; background: #21262d; color: #8b949e;
   border-radius: 4px; padding: 1px 5px;
 }
-
-/* Counter */
+.hmenu {
+  position: absolute; bottom: 8px; right: 8px;
+  background: none; border: none;
+  color: #30363d; font-size: 18px;
+  cursor: pointer; padding: 2px 5px;
+  border-radius: 6px; line-height: 1;
+  z-index: 2;
+}
+.hcard:hover .hmenu { color: #8b949e; }
 .ctr-row {
   display: flex; align-items: center; gap: 8px;
   margin-top: 8px;
@@ -131,8 +128,6 @@ body {
 }
 .hcard.done .ctr-btn { border-color: #39d353; }
 .ctr-val { font-size: 20px; font-weight: 700; color: #39d353; min-width: 28px; text-align: center; }
-
-/* Inputs (number, time) */
 .inp-row { display: none; margin-top: 8px; align-items: center; flex-wrap: wrap; gap: 6px; }
 .hcard.done .inp-row { display: flex; }
 .hinput {
@@ -143,8 +138,6 @@ body {
 .hinput.n { width: 64px; }
 .hinput.t { width: 84px; }
 .ilbl { font-size: 10px; color: #8b949e; }
-
-/* text_note */
 .note-wrap { display: none; margin-top: 8px; }
 .hcard.done .note-wrap { display: block; }
 .note-prompt { font-size: 10px; color: #8b949e; font-style: italic; margin-bottom: 4px; }
@@ -155,8 +148,6 @@ body {
   resize: none; height: 52px; font-family: inherit;
 }
 .note-ta:focus { outline: none; border-color: #39d353; }
-
-/* Add habit */
 .add-btn {
   width: 100%; background: transparent;
   border: 1px dashed #30363d; border-radius: 12px;
@@ -164,8 +155,6 @@ body {
   cursor: pointer; margin-bottom: 16px;
 }
 .add-btn:active { border-color: #39d353; color: #39d353; }
-
-/* Todos */
 .todo-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
 .tcard {
   background: #161b22;
@@ -181,10 +170,7 @@ body {
 .ttask { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
 .tcard.tdone .ttask { text-decoration: line-through; color: #8b949e; }
 .tbadges { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 9px; }
-.bdg {
-  font-size: 10px; border-radius: 20px;
-  padding: 2px 8px; font-weight: 500;
-}
+.bdg { font-size: 10px; border-radius: 20px; padding: 2px 8px; font-weight: 500; }
 .bdg-t { background: #21262d; color: #8b949e; }
 .bdg-el { background: #0a2e18; color: #39d353; }
 .bdg-em { background: #2a1f00; color: #d29922; }
@@ -209,7 +195,6 @@ body {
 .tact.done-act { background: #0a2e18; color: #39d353; border-color: #39d353; }
 .tact.del-act { background: #0c2340; color: #58a6ff; border-color: #58a6ff; }
 .tact.drp-act { color: #f85149; }
-
 .add-todo-btn {
   width: 100%; background: transparent;
   border: 1px dashed #30363d; border-radius: 12px;
@@ -217,8 +202,6 @@ body {
   cursor: pointer;
 }
 .add-todo-btn:active { border-color: #58a6ff; color: #58a6ff; }
-
-/* Heatmap */
 .heatmap { display: flex; gap: 3px; overflow-x: auto; padding-bottom: 6px; }
 .hw { display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
 .hd { width: 12px; height: 12px; border-radius: 2px; background: #161b22; }
@@ -233,8 +216,6 @@ body {
   color: #8b949e; padding: 10px; font-size: 12px;
   cursor: pointer; margin-top: 16px;
 }
-
-/* Modals */
 .overlay {
   display: none; position: fixed; inset: 0;
   background: rgba(0,0,0,.8); z-index: 300;
@@ -299,7 +280,17 @@ select.finput { cursor: pointer; }
   border: 1px solid #30363d; border-radius: 8px;
   color: #8b949e; font-size: 14px; padding: 12px; cursor: pointer;
 }
-.divider { height: 1px; background: #21262d; margin: 12px 0; }
+.asheet-item {
+  display: block; width: 100%;
+  background: none; border: none;
+  border-bottom: 1px solid #21262d;
+  color: #e6edf3; font-size: 15px;
+  padding: 14px 0; cursor: pointer;
+  text-align: left;
+}
+.asheet-item:last-child { border-bottom: none; }
+.asheet-item.danger { color: #f85149; }
+.asheet-item.muted { color: #8b949e; }
 </style>
 </head>
 <body>
@@ -324,31 +315,28 @@ select.finput { cursor: pointer; }
   <button class="tab" onclick="switchTab('year',this)">Year</button>
 </div>
 
-<!-- TODAY -->
 <div class="pane on" id="pToday">
   <div class="sec-lbl">Habits</div>
   <div class="hgrid" id="hgrid"></div>
   <button class="add-btn" onclick="openHabitModal()">+ Add habit</button>
 </div>
 
-<!-- TODOS -->
 <div class="pane" id="pTodos">
   <div class="sec-lbl">Tasks</div>
   <div class="todo-list" id="todoList"></div>
   <button class="add-todo-btn" onclick="openTodoModal()">+ Add task</button>
 </div>
 
-<!-- YEAR -->
 <div class="pane" id="pYear">
   <div class="sec-lbl">This year</div>
   <div class="heatmap" id="heatmap"></div>
-  <button class="export-btn" onclick="exportCSV()">&#8595; Export as CSV</button>
+  <button class="export-btn" onclick="exportCSV()">↓ Export as CSV</button>
 </div>
 
 <!-- HABIT MODAL -->
 <div class="overlay" id="habitModal" onclick="closeIfOverlay(event,'habitModal')">
   <div class="modal">
-    <div class="mtitle">New habit</div>
+    <div class="mtitle" id="habitModalTitle">New habit</div>
     <label class="flbl">Name</label>
     <input class="finput" id="hName" placeholder="e.g. Meditation" />
     <label class="flbl">Emoji icon</label>
@@ -373,7 +361,7 @@ select.finput { cursor: pointer; }
       <input class="finput" id="hRangeB" placeholder="e.g. Woke at" />
     </div>
     <div id="hNoteRow" style="display:none">
-      <label class="flbl">Prompt (shown inside card)</label>
+      <label class="flbl">Prompt shown inside card</label>
       <input class="finput" id="hNotePrompt" placeholder="e.g. What did you learn?" />
     </div>
     <div id="hReminderRow" style="display:none">
@@ -388,7 +376,7 @@ select.finput { cursor: pointer; }
     </div>
     <div class="mbtns">
       <button class="mbtn-cancel" onclick="closeModal('habitModal')">Cancel</button>
-      <button class="mbtn-ok" onclick="addHabit()">Add habit</button>
+      <button class="mbtn-ok" id="habitModalOk" onclick="submitHabit()">Add habit</button>
     </div>
   </div>
 </div>
@@ -418,7 +406,7 @@ select.finput { cursor: pointer; }
     </div>
     <label class="flbl">Reminder (optional)</label>
     <input class="finput" id="tReminder" type="datetime-local" />
-    <div class="approach-hint" id="approachHint">
+    <div class="approach-hint">
       Suggested: <strong id="approachText">Do it now</strong>
     </div>
     <div class="mbtns">
@@ -428,8 +416,19 @@ select.finput { cursor: pointer; }
   </div>
 </div>
 
+<!-- HABIT ACTION SHEET -->
+<div class="overlay" id="habitActions" onclick="closeIfOverlay(event,'habitActions')">
+  <div class="modal">
+    <div class="mtitle" id="actionsTitle"></div>
+    <button class="asheet-item" onclick="startEditHabit()">✏️ Edit habit</button>
+    <button class="asheet-item danger" onclick="deleteHabit()">🗑 Delete habit</button>
+    <button class="asheet-item muted" onclick="closeModal('habitActions')">Cancel</button>
+  </div>
+</div>
+
 <script>
 const KEY = 'streaks_v1';
+let _editHabitId = null;
 
 const DEFAULTS = [
   {id:'h1',  name:'Sleep duration',   icon:'⏱️', type:'number',    unit:'hrs',     frequency:'daily'},
@@ -449,56 +448,33 @@ const DEFAULTS = [
 
 function load() {
   const raw = localStorage.getItem(KEY);
-  if (raw) {
-    const d = JSON.parse(raw);
-    if (!d.todos) d.todos = [];
-    return d;
-  }
+  if (raw) { const d = JSON.parse(raw); if (!d.todos) d.todos = []; return d; }
   return {habits: JSON.parse(JSON.stringify(DEFAULTS)), logs: {}, todos: []};
 }
 function save(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
 function today() { return new Date().toISOString().slice(0,10); }
 
 function weekDates() {
-  const d = new Date();
-  const day = d.getDay() || 7;
+  const d = new Date(), day = d.getDay() || 7;
   const mon = new Date(d); mon.setDate(d.getDate() - day + 1);
-  const out = [];
-  for (let i = 0; i < 7; i++) {
-    const x = new Date(mon); x.setDate(mon.getDate() + i);
-    out.push(x.toISOString().slice(0,10));
-  }
-  return out;
+  return Array.from({length:7}, (_,i) => { const x = new Date(mon); x.setDate(mon.getDate()+i); return x.toISOString().slice(0,10); });
 }
 
 function isDone(data, h) {
-  const t = today();
-  if (h.frequency === 'weekly') {
-    return weekDates().some(d => data.logs[d]?.[h.id]?.done);
-  }
+  if (h.frequency === 'weekly') return weekDates().some(d => data.logs[d]?.[h.id]?.done);
   if (h.frequency === 'biweekly') {
-    for (let i = 0; i < 14; i++) {
-      const d = new Date(); d.setDate(d.getDate() - i);
-      const k = d.toISOString().slice(0,10);
-      if (data.logs[k]?.[h.id]?.done) return true;
-    }
+    for (let i = 0; i < 14; i++) { const d = new Date(); d.setDate(d.getDate()-i); if (data.logs[d.toISOString().slice(0,10)]?.[h.id]?.done) return true; }
     return false;
   }
-  return !!data.logs[t]?.[h.id]?.done;
+  return !!data.logs[today()]?.[h.id]?.done;
 }
 
-function getLog(data, h) {
-  return data.logs[today()]?.[h.id] || {};
-}
+function getLog(data, h) { return data.logs[today()]?.[h.id] || {}; }
 
 function getStreak(data, h) {
   if (h.frequency !== 'daily') return 0;
   let s = 0; const d = new Date();
-  while (true) {
-    const k = d.toISOString().slice(0,10);
-    if (data.logs[k]?.[h.id]?.done) { s++; d.setDate(d.getDate()-1); }
-    else break;
-  }
+  while (true) { const k = d.toISOString().slice(0,10); if (data.logs[k]?.[h.id]?.done) { s++; d.setDate(d.getDate()-1); } else break; }
   return s;
 }
 
@@ -508,99 +484,73 @@ function bestStreak(data) {
   for (const dt of dates) {
     const anyDone = Object.values(data.logs[dt]).some(v => v.done);
     if (!anyDone) { cur = 0; prev = null; continue; }
-    if (prev) {
-      const p = new Date(prev); p.setDate(p.getDate()+1);
-      cur = p.toISOString().slice(0,10) === dt ? cur+1 : 1;
-    } else cur = 1;
-    best = Math.max(best, cur);
-    prev = dt;
+    if (prev) { const p = new Date(prev); p.setDate(p.getDate()+1); cur = p.toISOString().slice(0,10) === dt ? cur+1 : 1; } else cur = 1;
+    best = Math.max(best, cur); prev = dt;
   }
   return best;
 }
 
-// ── Render ──────────────────────────────────────────────────
 function render() {
   const data = load();
-  const t = today();
-
   document.getElementById('dateDisp').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-
-  const total = data.habits.length;
-  const done = data.habits.filter(h => isDone(data, h)).length;
+  const total = data.habits.length, done = data.habits.filter(h => isDone(data,h)).length;
   document.getElementById('sToday').textContent = done+'/'+total;
   document.getElementById('sStreak').textContent = bestStreak(data);
   document.getElementById('sDays').textContent = Object.keys(data.logs).length;
-
-  renderHabits(data);
-  renderTodos(data);
-  renderHeatmap(data);
+  renderHabits(data); renderTodos(data); renderHeatmap(data);
 }
 
 function renderHabits(data) {
   const grid = document.getElementById('hgrid');
   grid.innerHTML = '';
   data.habits.forEach(h => {
-    const done = isDone(data, h);
-    const log = getLog(data, h);
-    const streak = getStreak(data, h);
-
+    const done = isDone(data,h), log = getLog(data,h), streak = getStreak(data,h);
     const card = document.createElement('div');
-    card.className = 'hcard' + (done ? ' done' : '') + (h.full ? ' full' : '') + (h.type === 'reminder' ? ' reminder-type' : '');
+    card.className = 'hcard'+(done?' done':'')+(h.full?' full':'')+(h.type==='reminder'?' reminder-type':'');
     card.dataset.id = h.id;
-
     let inner = `<span class="hck">&#10003;</span>`;
-    if (h.frequency !== 'daily') inner += `<span class="freq-tag">${h.frequency === 'weekly' ? 'weekly' : '2-week'}</span>`;
-    inner += `<span class="hicon">${h.icon||'○'}</span>`;
-    inner += `<span class="hname">${h.name}</span>`;
-
+    if (h.frequency !== 'daily') inner += `<span class="freq-tag">${h.frequency==='weekly'?'weekly':'2-week'}</span>`;
+    inner += `<span class="hicon">${h.icon||'○'}</span><span class="hname">${h.name}</span>`;
     if (h.type === 'counter') {
-      const count = log.count || 0;
-      inner += `<span class="hsub">${done ? count+' '+( h.unit||'') : 'Tap to count'}</span>`;
+      const count = log.count||0;
+      inner += `<span class="hsub">${done?count+' '+(h.unit||''):'Tap to count'}</span>`;
       inner += `<div class="ctr-row" onclick="event.stopPropagation()">
         <button class="ctr-btn" onclick="adjustCounter('${h.id}',-1)">−</button>
         <span class="ctr-val" id="cv_${h.id}">${count}</span>
-        <button class="ctr-btn" onclick="adjustCounter('${h.id}',1)">+</button>
-      </div>`;
+        <button class="ctr-btn" onclick="adjustCounter('${h.id}',1)">+</button></div>`;
     } else if (h.type === 'number') {
       inner += `<span class="hsub">${streak>0?'🔥 '+streak+' day streak':'Start today'}</span>`;
       inner += `<div class="inp-row" onclick="event.stopPropagation()">
         <input class="hinput n" type="number" min="0" step="any" value="${log.value||''}" placeholder="0"
           onchange="saveVal('${h.id}',this.value)" onclick="event.stopPropagation()" />
-        <span class="ilbl">${h.unit||''}</span>
-      </div>`;
+        <span class="ilbl">${h.unit||''}</span></div>`;
     } else if (h.type === 'time_range') {
-      const a = (h.config||{}).a||'Start';
-      const b = (h.config||{}).b||'End';
-      inner += `<span class="hsub">${done ? (log.ta||'?')+' → '+(log.tb||'?') : 'Set times'}</span>`;
+      const a=(h.config||{}).a||'Start', b=(h.config||{}).b||'End';
+      inner += `<span class="hsub">${done?(log.ta||'?')+' → '+(log.tb||'?'):'Set times'}</span>`;
       inner += `<div class="inp-row" onclick="event.stopPropagation()" style="flex-direction:column;align-items:flex-start;gap:5px">
-        <div style="display:flex;align-items:center;gap:5px">
-          <span class="ilbl">${a}</span>
-          <input class="hinput t" type="time" value="${log.ta||''}" onchange="saveTimeRange('${h.id}','ta',this.value)" onclick="event.stopPropagation()" />
-        </div>
-        <div style="display:flex;align-items:center;gap:5px">
-          <span class="ilbl">${b}</span>
-          <input class="hinput t" type="time" value="${log.tb||''}" onchange="saveTimeRange('${h.id}','tb',this.value)" onclick="event.stopPropagation()" />
-        </div>
-      </div>`;
+        <div style="display:flex;align-items:center;gap:5px"><span class="ilbl">${a}</span>
+          <input class="hinput t" type="time" value="${log.ta||''}" onchange="saveTimeRange('${h.id}','ta',this.value)" onclick="event.stopPropagation()" /></div>
+        <div style="display:flex;align-items:center;gap:5px"><span class="ilbl">${b}</span>
+          <input class="hinput t" type="time" value="${log.tb||''}" onchange="saveTimeRange('${h.id}','tb',this.value)" onclick="event.stopPropagation()" /></div></div>`;
     } else if (h.type === 'text_note') {
-      const prompt = (h.config||{}).prompt||'Your note';
+      const prompt=(h.config||{}).prompt||'Your note';
       inner += `<span class="hsub">${streak>0?'🔥 '+streak+' day streak':'Start today'}</span>`;
       inner += `<div class="note-wrap" onclick="event.stopPropagation()">
         <div class="note-prompt">${prompt}</div>
-        <textarea class="note-ta" placeholder="Type here..." onchange="saveNote('${h.id}',this.value)" onclick="event.stopPropagation()">${log.note||''}</textarea>
-      </div>`;
+        <textarea class="note-ta" placeholder="Type here..." onchange="saveNote('${h.id}',this.value)" onclick="event.stopPropagation()">${log.note||''}</textarea></div>`;
     } else if (h.type === 'reminder') {
-      const msg = (h.config||{}).msg||h.name;
       inner += `<span class="hsub" style="color:#d29922">${done?'✓ Done':'Tap to dismiss'}</span>`;
-      inner += `<div style="font-size:11px;color:#8b949e;margin-top:6px">${msg}</div>`;
+      inner += `<div style="font-size:11px;color:#8b949e;margin-top:6px">${(h.config||{}).msg||h.name}</div>`;
     } else {
       inner += `<span class="hsub">${streak>0?'🔥 '+streak+' day streak':'Start today'}</span>`;
     }
-
     card.innerHTML = inner;
-    if (h.type !== 'counter') {
-      card.addEventListener('click', () => toggleHabit(h.id));
-    }
+    // Menu button
+    const menu = document.createElement('button');
+    menu.className = 'hmenu'; menu.textContent = '⋯';
+    menu.onclick = e => { e.stopPropagation(); openHabitActions(h.id); };
+    card.appendChild(menu);
+    if (h.type !== 'counter') card.addEventListener('click', () => toggleHabit(h.id));
     grid.appendChild(card);
   });
 }
@@ -608,306 +558,295 @@ function renderHabits(data) {
 function renderTodos(data) {
   const list = document.getElementById('todoList');
   list.innerHTML = '';
-  const active = data.todos.filter(t => t.status === 'pending');
-  const done = data.todos.filter(t => t.status !== 'pending');
-  [...active, ...done].forEach(todo => renderTodoCard(todo, list));
-}
-
-function renderTodoCard(todo, container) {
-  const ap = approach(todo);
-  const energyClass = {low:'el', medium:'em', high:'eh'}[todo.energy] || 'el';
-  const energyBadge = {low:'bdg-el', medium:'bdg-em', high:'bdg-eh'}[todo.energy] || 'bdg-el';
-  const energyLabel = {low:'⚡ Low energy', medium:'⚡⚡ Medium', high:'⚡⚡⚡ High'}[todo.energy] || '';
-  const isDone = todo.status !== 'pending';
-  const reminderStr = todo.reminder ? '🔔 ' + new Date(todo.reminder).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : '';
-
-  const card = document.createElement('div');
-  card.className = `tcard ${energyClass}${isDone?' tdone':''}`;
-  card.innerHTML = `
-    <div class="ttask">${todo.task}</div>
-    <div class="tbadges">
-      <span class="bdg bdg-t">${todo.timeEstimate}</span>
-      <span class="bdg ${energyBadge}">${energyLabel}</span>
-      ${todo.canDelegate ? '<span class="bdg bdg-d">👤 Delegatable</span>' : ''}
-    </div>
-    <span class="tapproach ${ap.cls}">${ap.label}</span>
-    ${reminderStr ? `<div class="treminder">${reminderStr}</div>` : ''}
-    ${!isDone ? `<div class="tactions">
-      <div class="tact done-act" onclick="updateTodo('${todo.id}','done')">✓ Done</div>
-      ${todo.canDelegate ? `<div class="tact del-act" onclick="updateTodo('${todo.id}','delegated')">👤 Delegate</div>` : ''}
-      <div class="tact drp-act" onclick="updateTodo('${todo.id}','dropped')">Drop</div>
-    </div>` : `<div style="font-size:11px;color:#8b949e;margin-top:4px">${todo.status === 'done' ? '✓ Completed' : todo.status === 'delegated' ? '👤 Delegated' : '🗑 Dropped'}</div>`}
-  `;
-  container.appendChild(card);
+  const active = data.todos.filter(t => t.status==='pending');
+  const done = data.todos.filter(t => t.status!=='pending');
+  [...active,...done].forEach(todo => {
+    const ap = approach(todo);
+    const ec = {low:'el',medium:'em',high:'eh'}[todo.energy]||'el';
+    const eb = {low:'bdg-el',medium:'bdg-em',high:'bdg-eh'}[todo.energy]||'bdg-el';
+    const el = {low:'⚡ Low',medium:'⚡⚡ Med',high:'⚡⚡⚡ High'}[todo.energy]||'';
+    const isDoneT = todo.status !== 'pending';
+    const rem = todo.reminder ? '🔔 '+new Date(todo.reminder).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : '';
+    const card = document.createElement('div');
+    card.className = `tcard ${ec}${isDoneT?' tdone':''}`;
+    card.innerHTML = `
+      <div class="ttask">${todo.task}</div>
+      <div class="tbadges">
+        <span class="bdg bdg-t">${todo.timeEstimate}</span>
+        <span class="bdg ${eb}">${el}</span>
+        ${todo.canDelegate?'<span class="bdg bdg-d">👤 Delegate</span>':''}
+      </div>
+      <span class="tapproach ${ap.cls}">${ap.label}</span>
+      ${rem?`<div class="treminder">${rem}</div>`:''}
+      ${!isDoneT?`<div class="tactions">
+        <div class="tact done-act" onclick="updateTodo('${todo.id}','done')">✓ Done</div>
+        ${todo.canDelegate?`<div class="tact del-act" onclick="updateTodo('${todo.id}','delegated')">👤 Delegate</div>`:''}
+        <div class="tact drp-act" onclick="updateTodo('${todo.id}','dropped')">Drop</div>
+      </div>`:`<div style="font-size:11px;color:#8b949e;margin-top:4px">${todo.status==='done'?'✓ Done':todo.status==='delegated'?'👤 Delegated':'🗑 Dropped'}</div>`}
+    `;
+    list.appendChild(card);
+  });
 }
 
 function approach(todo) {
   if (todo.canDelegate) return {label:'👤 Delegate it', cls:'ap-del'};
-  if (todo.energy === 'low' && todo.timeEstimate === '15 min') return {label:'⚡ Do it now', cls:'ap-now'};
-  if (todo.energy === 'high' || todo.timeEstimate === 'Full day') return {label:'📅 Block focused time', cls:'ap-sch'};
-  if (todo.timeEstimate === 'Half day') return {label:'📅 Schedule it', cls:'ap-sch'};
+  if (todo.energy==='low' && todo.timeEstimate==='15 min') return {label:'⚡ Do it now', cls:'ap-now'};
+  if (todo.energy==='high' || todo.timeEstimate==='Full day') return {label:'📅 Block focused time', cls:'ap-sch'};
   return {label:'📅 Schedule it', cls:'ap-sch'};
 }
 
 function renderHeatmap(data) {
-  const map = document.getElementById('heatmap');
-  map.innerHTML = '';
-  const t = today();
-  const yearStart = t.slice(0,4)+'-01-01';
-  const all = [];
+  const map = document.getElementById('heatmap'); map.innerHTML = '';
+  const t = today(), yearStart = t.slice(0,4)+'-01-01', all = [];
   const cur = new Date(yearStart), end = new Date(t);
-  while (cur <= end) { all.push(cur.toISOString().slice(0,10)); cur.setDate(cur.getDate()+1); }
+  while (cur<=end) { all.push(cur.toISOString().slice(0,10)); cur.setDate(cur.getDate()+1); }
   const pad = Array(new Date(yearStart).getDay()).fill(null).concat(all);
-  const total = data.habits.length || 1;
-  for (let i = 0; i < pad.length; i += 7) {
-    const week = pad.slice(i, i+7);
-    const col = document.createElement('div'); col.className = 'hw';
-    week.forEach(dt => {
-      const cell = document.createElement('div'); cell.className = 'hd';
+  const total = data.habits.length||1;
+  for (let i=0; i<pad.length; i+=7) {
+    const col = document.createElement('div'); col.className='hw';
+    pad.slice(i,i+7).forEach(dt => {
+      const cell = document.createElement('div'); cell.className='hd';
       if (dt) {
-        if (dt === t) cell.classList.add('today');
-        const log = data.logs[dt] || {};
-        const n = Object.values(log).filter(v => v.done).length;
-        const r = n / total;
-        if (r > .75) cell.dataset.l = '4';
-        else if (r > .5) cell.dataset.l = '3';
-        else if (r > .25) cell.dataset.l = '2';
-        else if (r > 0) cell.dataset.l = '1';
-        cell.title = dt + (n ? ` — ${n}/${total}` : '');
-      } else cell.style.visibility = 'hidden';
+        if (dt===t) cell.classList.add('today');
+        const n = Object.values(data.logs[dt]||{}).filter(v=>v.done).length;
+        const r = n/total;
+        if (r>.75) cell.dataset.l='4'; else if (r>.5) cell.dataset.l='3'; else if (r>.25) cell.dataset.l='2'; else if (r>0) cell.dataset.l='1';
+        cell.title = dt+(n?` — ${n}/${total}`:'');
+      } else cell.style.visibility='hidden';
       col.appendChild(cell);
     });
     map.appendChild(col);
   }
 }
 
-// ── Actions ─────────────────────────────────────────────────
 function toggleHabit(id) {
-  const data = load();
-  const t = today();
-  if (!data.logs[t]) data.logs[t] = {};
-  const cur = data.logs[t][id] || {};
-  data.logs[t][id] = {...cur, done: !cur.done};
+  const data=load(), t=today();
+  if (!data.logs[t]) data.logs[t]={};
+  const cur=data.logs[t][id]||{};
+  data.logs[t][id]={...cur, done:!cur.done};
   save(data); render();
 }
 
 function adjustCounter(id, delta) {
-  const data = load();
-  const t = today();
-  if (!data.logs[t]) data.logs[t] = {};
-  if (!data.logs[t][id]) data.logs[t][id] = {done: false, count: 0};
-  const newCount = Math.max(0, (data.logs[t][id].count || 0) + delta);
-  data.logs[t][id].count = newCount;
-  data.logs[t][id].done = newCount > 0;
+  const data=load(), t=today();
+  if (!data.logs[t]) data.logs[t]={};
+  if (!data.logs[t][id]) data.logs[t][id]={done:false,count:0};
+  const n=Math.max(0,(data.logs[t][id].count||0)+delta);
+  data.logs[t][id].count=n; data.logs[t][id].done=n>0;
   save(data);
-  const cv = document.getElementById('cv_'+id);
-  if (cv) cv.textContent = newCount;
-  const card = document.querySelector(`.hcard[data-id="${id}"]`);
-  if (card) card.classList.toggle('done', newCount > 0);
+  const cv=document.getElementById('cv_'+id); if(cv) cv.textContent=n;
+  const card=document.querySelector(`.hcard[data-id="${id}"]`); if(card) card.classList.toggle('done',n>0);
 }
 
-function saveVal(id, value) {
-  const data = load();
-  const t = today();
-  if (!data.logs[t]) data.logs[t] = {};
-  if (!data.logs[t][id]) data.logs[t][id] = {done: true};
-  data.logs[t][id].value = value;
-  data.logs[t][id].done = value !== '' && value !== null;
+function saveVal(id,value) {
+  const data=load(), t=today();
+  if (!data.logs[t]) data.logs[t]={};
+  if (!data.logs[t][id]) data.logs[t][id]={done:true};
+  data.logs[t][id].value=value; data.logs[t][id].done=value!==''&&value!==null;
   save(data);
 }
 
-function saveTimeRange(id, field, value) {
-  const data = load();
-  const t = today();
-  if (!data.logs[t]) data.logs[t] = {};
-  if (!data.logs[t][id]) data.logs[t][id] = {done: false};
-  data.logs[t][id][field] = value;
-  data.logs[t][id].done = !!(data.logs[t][id].ta || data.logs[t][id].tb);
+function saveTimeRange(id,field,value) {
+  const data=load(), t=today();
+  if (!data.logs[t]) data.logs[t]={};
+  if (!data.logs[t][id]) data.logs[t][id]={done:false};
+  data.logs[t][id][field]=value;
+  data.logs[t][id].done=!!(data.logs[t][id].ta||data.logs[t][id].tb);
   save(data);
 }
 
-function saveNote(id, note) {
-  const data = load();
-  const t = today();
-  if (!data.logs[t]) data.logs[t] = {};
-  if (!data.logs[t][id]) data.logs[t][id] = {done: true};
-  data.logs[t][id].note = note;
-  data.logs[t][id].done = note.trim() !== '';
+function saveNote(id,note) {
+  const data=load(), t=today();
+  if (!data.logs[t]) data.logs[t]={};
+  if (!data.logs[t][id]) data.logs[t][id]={done:true};
+  data.logs[t][id].note=note; data.logs[t][id].done=note.trim()!=='';
   save(data);
 }
 
-function updateTodo(id, status) {
-  const data = load();
-  const todo = data.todos.find(t => t.id === id);
-  if (todo) { todo.status = status; todo.doneAt = today(); }
+function updateTodo(id,status) {
+  const data=load(), todo=data.todos.find(t=>t.id===id);
+  if (todo) { todo.status=status; todo.doneAt=today(); }
   save(data); renderTodos(data);
 }
 
-// ── Add habit ────────────────────────────────────────────────
-function onHabitTypeChange() {
-  const type = document.getElementById('hType').value;
-  document.getElementById('hUnitRow').style.display = ['number','counter'].includes(type) ? '' : 'none';
-  document.getElementById('hRangeRow').style.display = type === 'time_range' ? '' : 'none';
-  document.getElementById('hNoteRow').style.display = type === 'text_note' ? '' : 'none';
-  document.getElementById('hReminderRow').style.display = type === 'reminder' ? '' : 'none';
+// ─ Habit actions (edit/delete) ──────────────────────────────────
+function openHabitActions(id) {
+  _editHabitId = id;
+  const data=load(), h=data.habits.find(x=>x.id===id);
+  document.getElementById('actionsTitle').textContent = h ? h.icon+' '+h.name : 'Habit';
+  document.getElementById('habitActions').classList.add('open');
 }
 
-function addHabit() {
-  const name = document.getElementById('hName').value.trim();
+function startEditHabit() {
+  closeModal('habitActions');
+  const data=load(), h=data.habits.find(x=>x.id===_editHabitId);
+  if (!h) return;
+  document.getElementById('hName').value = h.name;
+  document.getElementById('hIcon').value = h.icon||'';
+  document.getElementById('hType').value = h.type;
+  onHabitTypeChange();
+  document.getElementById('hUnit').value = h.unit||'';
+  if (h.config) {
+    if (h.config.a) document.getElementById('hRangeA').value=h.config.a;
+    if (h.config.b) document.getElementById('hRangeB').value=h.config.b;
+    if (h.config.prompt) document.getElementById('hNotePrompt').value=h.config.prompt;
+    if (h.config.msg) document.getElementById('hReminderMsg').value=h.config.msg;
+  }
+  const freqLabel={daily:'Daily',weekly:'Weekly',biweekly:'Bi-weekly'}[h.frequency]||'Daily';
+  document.querySelectorAll('#freqPills .pill').forEach(p=>p.classList.toggle('on',p.textContent===freqLabel));
+  document.getElementById('habitModalTitle').textContent = 'Edit habit';
+  document.getElementById('habitModalOk').textContent = 'Save changes';
+  document.getElementById('habitModal').classList.add('open');
+}
+
+function deleteHabit() {
+  if (!confirm('Delete this habit?')) return;
+  closeModal('habitActions');
+  const data=load();
+  data.habits=data.habits.filter(x=>x.id!==_editHabitId);
+  save(data); render();
+}
+
+function submitHabit() {
+  if (_editHabitId) saveHabitEdit(); else addHabit();
+}
+
+function saveHabitEdit() {
+  const name=document.getElementById('hName').value.trim();
   if (!name) { document.getElementById('hName').focus(); return; }
-  const type = document.getElementById('hType').value;
-  const freqPill = document.querySelector('#freqPills .pill.on');
-  const freq = freqPill ? freqPill.textContent.toLowerCase().replace('-','').replace(' ','') : 'daily';
-  const freqMap = {'daily':'daily','weekly':'weekly','biweekly':'biweekly'};
-
-  const habit = {
-    id: Date.now().toString(),
-    name,
-    icon: document.getElementById('hIcon').value.trim() || '○',
-    type,
-    frequency: freqMap[freq] || 'daily',
-  };
-  if (type === 'number' || type === 'counter') habit.unit = document.getElementById('hUnit').value.trim();
-  if (type === 'time_range') habit.config = {a: document.getElementById('hRangeA').value||'Start', b: document.getElementById('hRangeB').value||'End'};
-  if (type === 'text_note') habit.config = {prompt: document.getElementById('hNotePrompt').value||'Your note'};
-  if (type === 'reminder') habit.config = {msg: document.getElementById('hReminderMsg').value||name};
-  if (type === 'time_range') habit.full = true;
-
-  const data = load();
-  data.habits.push(habit);
-  save(data); closeModal('habitModal');
-  ['hName','hIcon','hUnit','hRangeA','hRangeB','hNotePrompt','hReminderMsg'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
-  document.getElementById('hType').value = 'boolean'; onHabitTypeChange();
+  const data=load(), idx=data.habits.findIndex(x=>x.id===_editHabitId);
+  if (idx===-1) return;
+  const h=data.habits[idx], type=document.getElementById('hType').value;
+  const freqPill=document.querySelector('#freqPills .pill.on');
+  const freqMap={'daily':'daily','weekly':'weekly','bi-weekly':'biweekly'};
+  h.name=name;
+  h.icon=document.getElementById('hIcon').value.trim()||'○';
+  h.type=type;
+  h.frequency=freqMap[(freqPill?freqPill.textContent:'Daily').toLowerCase()]||'daily';
+  h.unit=['number','counter'].includes(type)?document.getElementById('hUnit').value.trim():undefined;
+  if (type==='time_range') { h.config={a:document.getElementById('hRangeA').value||'Start',b:document.getElementById('hRangeB').value||'End'}; h.full=true; }
+  else if (type==='text_note') { h.config={prompt:document.getElementById('hNotePrompt').value||'Your note'}; h.full=false; }
+  else if (type==='reminder') { h.config={msg:document.getElementById('hReminderMsg').value||name}; h.full=false; }
+  else { h.config=undefined; h.full=false; }
+  save(data);
+  resetHabitModal();
+  closeModal('habitModal');
   render();
 }
 
-// ── Add todo ─────────────────────────────────────────────────
-function addTodo() {
-  const task = document.getElementById('tTask').value.trim();
-  if (!task) { document.getElementById('tTask').focus(); return; }
-  const timePill = document.querySelector('#timePills .pill.on');
-  const energyPill = document.querySelector('#energyPills .pill.on');
-  const canDelegate = document.getElementById('delegateTgl').classList.contains('on');
-  const reminder = document.getElementById('tReminder').value;
-  const energyMap = {'⚡ Low':'low','⚡⚡ Medium':'medium','⚡⚡⚡ High':'high'};
-
-  const todo = {
-    id: Date.now().toString(),
-    task,
-    timeEstimate: timePill ? timePill.textContent : '15 min',
-    energy: energyPill ? (energyMap[energyPill.textContent] || 'low') : 'low',
-    canDelegate,
-    reminder: reminder || null,
-    status: 'pending',
-    createdAt: today(),
-    doneAt: null,
+function addHabit() {
+  const name=document.getElementById('hName').value.trim();
+  if (!name) { document.getElementById('hName').focus(); return; }
+  const type=document.getElementById('hType').value;
+  const freqPill=document.querySelector('#freqPills .pill.on');
+  const freqMap={'daily':'daily','weekly':'weekly','bi-weekly':'biweekly'};
+  const habit={
+    id:Date.now().toString(), name,
+    icon:document.getElementById('hIcon').value.trim()||'○',
+    type, frequency:freqMap[(freqPill?freqPill.textContent:'Daily').toLowerCase()]||'daily',
   };
+  if (['number','counter'].includes(type)) habit.unit=document.getElementById('hUnit').value.trim();
+  if (type==='time_range') { habit.config={a:document.getElementById('hRangeA').value||'Start',b:document.getElementById('hRangeB').value||'End'}; habit.full=true; }
+  if (type==='text_note') habit.config={prompt:document.getElementById('hNotePrompt').value||'Your note'};
+  if (type==='reminder') habit.config={msg:document.getElementById('hReminderMsg').value||name};
+  const data=load(); data.habits.push(habit); save(data);
+  resetHabitModal(); closeModal('habitModal'); render();
+}
 
-  const data = load();
-  data.todos.push(todo);
-  save(data);
+function resetHabitModal() {
+  _editHabitId=null;
+  document.getElementById('habitModalTitle').textContent='New habit';
+  document.getElementById('habitModalOk').textContent='Add habit';
+  ['hName','hIcon','hUnit','hRangeA','hRangeB','hNotePrompt','hReminderMsg'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('hType').value='boolean'; onHabitTypeChange();
+  document.querySelectorAll('#freqPills .pill').forEach((p,i)=>p.classList.toggle('on',i===0));
+}
 
-  if (reminder && Notification.permission === 'granted') scheduleReminder(todo);
-
+function addTodo() {
+  const task=document.getElementById('tTask').value.trim();
+  if (!task) { document.getElementById('tTask').focus(); return; }
+  const timePill=document.querySelector('#timePills .pill.on');
+  const energyPill=document.querySelector('#energyPills .pill.on');
+  const canDelegate=document.getElementById('delegateTgl').classList.contains('on');
+  const reminder=document.getElementById('tReminder').value;
+  const energyMap={'⚡ Low':'low','⚡⚡ Medium':'medium','⚡⚡⚡ High':'high'};
+  const todo={
+    id:Date.now().toString(), task,
+    timeEstimate:timePill?timePill.textContent:'15 min',
+    energy:energyPill?(energyMap[energyPill.textContent]||'low'):'low',
+    canDelegate, reminder:reminder||null,
+    status:'pending', createdAt:today(), doneAt:null,
+  };
+  const data=load(); data.todos.push(todo); save(data);
+  if (reminder&&Notification.permission==='granted') scheduleReminder(todo);
   closeModal('todoModal');
-  document.getElementById('tTask').value = '';
-  document.getElementById('tReminder').value = '';
+  document.getElementById('tTask').value='';
+  document.getElementById('tReminder').value='';
   document.getElementById('delegateTgl').classList.remove('on');
   render();
 }
 
-// ── Notifications ────────────────────────────────────────────
 function askNotifPerm() {
-  if (!('Notification' in window)) { alert('Notifications not supported in this browser.'); return; }
-  Notification.requestPermission().then(p => {
-    if (p === 'granted') alert('Notifications enabled! You will get reminders when the app is open.');
-  });
+  if (!('Notification' in window)) { alert('Notifications not supported.'); return; }
+  Notification.requestPermission().then(p=>{ if(p==='granted') alert('Notifications enabled! Reminders will fire when the app is open.'); });
 }
 
 function scheduleReminder(todo) {
-  const ms = new Date(todo.reminder).getTime() - Date.now();
-  if (ms <= 0) return;
-  setTimeout(() => {
-    new Notification(todo.task, {
-      body: approach(todo).label,
-      icon: '' // could add an icon here
-    });
-  }, ms);
+  const ms=new Date(todo.reminder).getTime()-Date.now();
+  if (ms<=0) return;
+  setTimeout(()=>new Notification(todo.task,{body:approach(todo).label}),ms);
 }
 
-// ── CSV Export ───────────────────────────────────────────────
 function exportCSV() {
-  const data = load();
-  const habitNames = Object.fromEntries(data.habits.map(h => [h.id, h.name]));
-  const rows = [['Date', 'Habit', 'Done', 'Value', 'Note']];
-  Object.entries(data.logs).sort().forEach(([date, dayLogs]) => {
-    Object.entries(dayLogs).forEach(([hid, log]) => {
-      const name = habitNames[hid] || hid;
-      const val = log.value || (log.ta ? log.ta+'→'+log.tb : '') || (log.count != null ? log.count : '') || '';
-      rows.push([date, name, log.done ? 'yes' : 'no', val, log.note || '']);
+  const data=load();
+  const names=Object.fromEntries(data.habits.map(h=>[h.id,h.name]));
+  const rows=[['Date','Habit','Done','Value','Note']];
+  Object.entries(data.logs).sort().forEach(([date,day])=>{
+    Object.entries(day).forEach(([hid,log])=>{
+      const val=log.value||(log.ta?log.ta+'→'+log.tb:'')|(log.count!=null?log.count:'')||'';
+      rows.push([date,names[hid]||hid,log.done?'yes':'no',val,log.note||'']);
     });
   });
-  const todoCols = ['\n\nTodos', 'Task', 'Time', 'Energy', 'Can Delegate', 'Approach', 'Status', 'Created'];
-  rows.push(todoCols);
-  data.todos.forEach(t => {
-    rows.push(['', t.task, t.timeEstimate, t.energy, t.canDelegate?'yes':'no', approach(t).label.replace(/[^a-zA-Z ]/g,'').trim(), t.status, t.createdAt]);
-  });
-  const csv = rows.map(r => r.map(c => '"'+(String(c).replace(/"/g,'""'))+'"').join(',')).join('\n');
-  const blob = new Blob([csv], {type:'text/csv'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'streaks-'+today()+'.csv';
-  a.click();
+  rows.push(['','Todos','Task','Time','Energy','Delegate','Approach','Status','Created']);
+  data.todos.forEach(t=>rows.push(['','',t.task,t.timeEstimate,t.energy,t.canDelegate?'yes':'no',approach(t).label.replace(/[^\w ]/g,'').trim(),t.status,t.createdAt]));
+  const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='streaks-'+today()+'.csv'; a.click();
 }
 
-// ── UI helpers ───────────────────────────────────────────────
-function switchTab(name, btn) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
-  document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+function switchTab(name,btn) {
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
   btn.classList.add('on');
-  const paneMap = {today:'pToday', todos:'pTodos', year:'pYear'};
-  document.getElementById(paneMap[name]).classList.add('on');
+  document.getElementById({today:'pToday',todos:'pTodos',year:'pYear'}[name]).classList.add('on');
 }
 
-function selPill(el, groupId) {
-  document.querySelectorAll(`#${groupId} .pill`).forEach(p => p.classList.remove('on','blue','yellow','red'));
-  el.classList.add('on');
-  const color = el.dataset.color;
-  if (color) el.classList.add(color);
+function selPill(el,groupId) {
+  document.querySelectorAll(`#${groupId} .pill`).forEach(p=>p.classList.remove('on','blue','yellow','red'));
+  el.classList.add('on'); if(el.dataset.color) el.classList.add(el.dataset.color);
 }
 
-function openHabitModal() {
-  onHabitTypeChange();
-  document.getElementById('habitModal').classList.add('open');
-  setTimeout(() => document.getElementById('hName').focus(), 100);
+function onHabitTypeChange() {
+  const type=document.getElementById('hType').value;
+  document.getElementById('hUnitRow').style.display=['number','counter'].includes(type)?'':'none';
+  document.getElementById('hRangeRow').style.display=type==='time_range'?'':'none';
+  document.getElementById('hNoteRow').style.display=type==='text_note'?'':'none';
+  document.getElementById('hReminderRow').style.display=type==='reminder'?'':'none';
 }
 
-function openTodoModal() {
-  document.getElementById('todoModal').classList.add('open');
-  setTimeout(() => document.getElementById('tTask').focus(), 100);
-  updateApproach();
-}
-
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
-}
-
-function closeIfOverlay(e, id) {
-  if (e.target === document.getElementById(id)) closeModal(id);
-}
+function openHabitModal() { resetHabitModal(); document.getElementById('habitModal').classList.add('open'); setTimeout(()=>document.getElementById('hName').focus(),100); }
+function openTodoModal() { document.getElementById('todoModal').classList.add('open'); setTimeout(()=>document.getElementById('tTask').focus(),100); updateApproach(); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function closeIfOverlay(e,id) { if(e.target===document.getElementById(id)) closeModal(id); }
 
 function updateApproach() {
-  const timePill = document.querySelector('#timePills .pill.on');
-  const energyPill = document.querySelector('#energyPills .pill.on');
-  const canDelegate = document.getElementById('delegateTgl').classList.contains('on');
-  const energyMap = {'⚡ Low':'low','⚡⚡ Medium':'medium','⚡⚡⚡ High':'high'};
-  const fake = {
-    timeEstimate: timePill ? timePill.textContent : '15 min',
-    energy: energyPill ? (energyMap[energyPill.textContent]||'low') : 'low',
-    canDelegate,
-  };
-  const ap = approach(fake);
-  document.getElementById('approachText').textContent = ap.label;
+  const timePill=document.querySelector('#timePills .pill.on');
+  const energyPill=document.querySelector('#energyPills .pill.on');
+  const canDelegate=document.getElementById('delegateTgl').classList.contains('on');
+  const energyMap={'⚡ Low':'low','⚡⚡ Medium':'medium','⚡⚡⚡ High':'high'};
+  const ap=approach({timeEstimate:timePill?timePill.textContent:'15 min',energy:energyPill?(energyMap[energyPill.textContent]||'low'):'low',canDelegate});
+  document.getElementById('approachText').textContent=ap.label;
 }
 
 render();
