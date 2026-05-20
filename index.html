@@ -1,361 +1,429 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Streaks</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Streaks</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #0d1117;
+  color: #e6edf3;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
 
-    body {
-      background: #0d1117;
-      color: #e6edf3;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      padding: 16px;
-      max-width: 480px;
-      margin: 0 auto;
-    }
+/* Header */
+.hdr {
+  padding: 14px 16px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.hdr-left .date { font-size: 11px; color: #8b949e; }
+.hdr-left h1 { font-size: 22px; font-weight: 700; }
+.notif-btn {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  color: #8b949e;
+  font-size: 18px;
+  width: 36px; height: 36px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 24px;
-      padding-top: 8px;
-    }
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 0 16px 12px;
+}
+.stat {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 10px 6px;
+  text-align: center;
+}
+.stat-n { font-size: 20px; font-weight: 700; color: #39d353; }
+.stat-l { font-size: 10px; color: #8b949e; margin-top: 1px; }
 
-    .date {
-      font-size: 13px;
-      color: #8b949e;
-      margin-bottom: 2px;
-    }
+/* Tabs */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #21262d;
+  padding: 0 16px;
+}
+.tab {
+  background: none;
+  border: none;
+  color: #8b949e;
+  font-size: 13px;
+  padding: 9px 14px 9px 0;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.tab.on { color: #e6edf3; border-bottom-color: #39d353; }
 
-    h1 {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
+/* Panes */
+.pane { display: none; padding: 14px 16px; }
+.pane.on { display: block; }
+.sec-lbl {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: #8b949e;
+  margin-bottom: 10px;
+}
 
-    .section-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #8b949e;
-      margin-bottom: 12px;
-    }
+/* Habit grid */
+.hgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.hcard {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 13px 11px;
+  cursor: pointer;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: background .12s, border-color .12s;
+}
+.hcard.done { background: #0a2e18; border-color: #39d353; }
+.hcard.full { grid-column: span 2; }
+.hcard.reminder-type { border-color: #d29922; background: #1a1500; }
+.hcard.reminder-type.done { background: #101500; border-color: #3fb950; opacity: .7; }
+.hcard:active { transform: scale(.97); }
+.hck { position: absolute; top: 10px; right: 10px; color: #39d353; font-size: 13px; display: none; }
+.hcard.done .hck { display: block; }
+.hicon { font-size: 22px; display: block; margin-bottom: 6px; }
+.hname { font-size: 13px; font-weight: 600; display: block; margin-bottom: 2px; }
+.hsub { font-size: 10px; color: #8b949e; }
+.hcard.done .hsub { color: #39d353; }
+.freq-tag {
+  position: absolute; top: 10px; left: 11px;
+  font-size: 8px; background: #21262d; color: #8b949e;
+  border-radius: 4px; padding: 1px 5px;
+}
 
-    /* Stats */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
-    }
+/* Counter */
+.ctr-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 8px;
+}
+.ctr-btn {
+  background: #21262d; border: 1px solid #30363d;
+  border-radius: 6px; color: #e6edf3;
+  font-size: 16px; width: 28px; height: 28px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.hcard.done .ctr-btn { border-color: #39d353; }
+.ctr-val { font-size: 20px; font-weight: 700; color: #39d353; min-width: 28px; text-align: center; }
 
-    .stat-box {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 10px;
-      padding: 12px 8px;
-      text-align: center;
-    }
+/* Inputs (number, time) */
+.inp-row { display: none; margin-top: 8px; align-items: center; flex-wrap: wrap; gap: 6px; }
+.hcard.done .inp-row { display: flex; }
+.hinput {
+  background: #0d1117; border: 1px solid #39d353;
+  border-radius: 6px; color: #e6edf3;
+  font-size: 13px; padding: 3px 6px; text-align: center;
+}
+.hinput.n { width: 64px; }
+.hinput.t { width: 84px; }
+.ilbl { font-size: 10px; color: #8b949e; }
 
-    .stat-number {
-      font-size: 22px;
-      font-weight: 700;
-      color: #39d353;
-    }
+/* text_note */
+.note-wrap { display: none; margin-top: 8px; }
+.hcard.done .note-wrap { display: block; }
+.note-prompt { font-size: 10px; color: #8b949e; font-style: italic; margin-bottom: 4px; }
+.note-ta {
+  width: 100%; background: #0d1117;
+  border: 1px solid #30363d; border-radius: 8px;
+  color: #e6edf3; font-size: 12px; padding: 6px 8px;
+  resize: none; height: 52px; font-family: inherit;
+}
+.note-ta:focus { outline: none; border-color: #39d353; }
 
-    .stat-label {
-      font-size: 11px;
-      color: #8b949e;
-      margin-top: 2px;
-    }
+/* Add habit */
+.add-btn {
+  width: 100%; background: transparent;
+  border: 1px dashed #30363d; border-radius: 12px;
+  color: #8b949e; padding: 12px; font-size: 13px;
+  cursor: pointer; margin-bottom: 16px;
+}
+.add-btn:active { border-color: #39d353; color: #39d353; }
 
-    /* Habit buttons */
-    .habits-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
+/* Todos */
+.todo-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+.tcard {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 13px;
+  border-left-width: 3px;
+}
+.tcard.el { border-left-color: #39d353; }
+.tcard.em { border-left-color: #d29922; }
+.tcard.eh { border-left-color: #f85149; }
+.tcard.tdone { opacity: .45; }
+.ttask { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.tcard.tdone .ttask { text-decoration: line-through; color: #8b949e; }
+.tbadges { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 9px; }
+.bdg {
+  font-size: 10px; border-radius: 20px;
+  padding: 2px 8px; font-weight: 500;
+}
+.bdg-t { background: #21262d; color: #8b949e; }
+.bdg-el { background: #0a2e18; color: #39d353; }
+.bdg-em { background: #2a1f00; color: #d29922; }
+.bdg-eh { background: #2d0e0e; color: #f85149; }
+.bdg-d { background: #0c2340; color: #58a6ff; }
+.tapproach {
+  font-size: 12px; font-weight: 600;
+  padding: 5px 10px; border-radius: 8px;
+  display: inline-block; margin-bottom: 9px;
+}
+.ap-now { background: #0c2340; color: #58a6ff; }
+.ap-sch { background: #2a1f00; color: #d29922; }
+.ap-del { background: #0a2e18; color: #39d353; }
+.ap-drp { background: #21262d; color: #8b949e; }
+.treminder { font-size: 11px; color: #8b949e; margin-bottom: 9px; }
+.tactions { display: flex; gap: 7px; }
+.tact {
+  flex: 1; background: #21262d; border: 1px solid #30363d;
+  border-radius: 8px; color: #8b949e; font-size: 11px;
+  padding: 7px 4px; cursor: pointer; text-align: center;
+}
+.tact.done-act { background: #0a2e18; color: #39d353; border-color: #39d353; }
+.tact.del-act { background: #0c2340; color: #58a6ff; border-color: #58a6ff; }
+.tact.drp-act { color: #f85149; }
 
-    .habit-btn {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 12px;
-      padding: 16px 12px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      text-align: left;
-      position: relative;
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-    }
+.add-todo-btn {
+  width: 100%; background: transparent;
+  border: 1px dashed #30363d; border-radius: 12px;
+  color: #8b949e; padding: 12px; font-size: 13px;
+  cursor: pointer;
+}
+.add-todo-btn:active { border-color: #58a6ff; color: #58a6ff; }
 
-    .habit-btn.done {
-      background: #0d4a1f;
-      border-color: #39d353;
-    }
+/* Heatmap */
+.heatmap { display: flex; gap: 3px; overflow-x: auto; padding-bottom: 6px; }
+.hw { display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
+.hd { width: 12px; height: 12px; border-radius: 2px; background: #161b22; }
+.hd[data-l="1"] { background: #0e4429; }
+.hd[data-l="2"] { background: #006d32; }
+.hd[data-l="3"] { background: #26a641; }
+.hd[data-l="4"] { background: #39d353; }
+.hd.today { outline: 2px solid #e6edf3; outline-offset: 1px; }
+.export-btn {
+  width: 100%; background: transparent;
+  border: 1px solid #21262d; border-radius: 8px;
+  color: #8b949e; padding: 10px; font-size: 12px;
+  cursor: pointer; margin-top: 16px;
+}
 
-    .habit-btn:active { transform: scale(0.97); }
-
-    .habit-icon {
-      font-size: 26px;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .habit-name {
-      font-size: 14px;
-      font-weight: 500;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .habit-streak {
-      font-size: 11px;
-      color: #8b949e;
-    }
-
-    .habit-btn.done .habit-streak { color: #39d353; }
-
-    .checkmark {
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      font-size: 15px;
-      color: #39d353;
-      display: none;
-    }
-
-    .habit-btn.done .checkmark { display: block; }
-
-    .habit-value {
-      display: none;
-      margin-top: 10px;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .habit-btn.done .habit-value { display: flex; }
-
-    .habit-value input {
-      width: 60px;
-      background: #0d1117;
-      border: 1px solid #39d353;
-      border-radius: 6px;
-      color: #e6edf3;
-      font-size: 14px;
-      padding: 3px 6px;
-      text-align: center;
-    }
-
-    .habit-value .unit-label {
-      font-size: 11px;
-      color: #8b949e;
-    }
-
-    /* Heatmap */
-    .heatmap-section { margin-top: 24px; }
-
-    .heatmap {
-      display: flex;
-      gap: 3px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-    }
-
-    .heatmap-week {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      flex-shrink: 0;
-    }
-
-    .heatmap-day {
-      width: 12px;
-      height: 12px;
-      border-radius: 2px;
-      background: #161b22;
-    }
-
-    .heatmap-day[data-level="1"] { background: #0e4429; }
-    .heatmap-day[data-level="2"] { background: #006d32; }
-    .heatmap-day[data-level="3"] { background: #26a641; }
-    .heatmap-day[data-level="4"] { background: #39d353; }
-    .heatmap-day.today { outline: 2px solid #e6edf3; outline-offset: 1px; }
-
-    /* Add habit */
-    .add-btn {
-      width: 100%;
-      background: transparent;
-      border: 1px dashed #30363d;
-      border-radius: 12px;
-      color: #8b949e;
-      padding: 14px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .add-btn:hover, .add-btn:active {
-      border-color: #58a6ff;
-      color: #58a6ff;
-    }
-
-    /* Modal */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      z-index: 100;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
-    .modal-overlay.open { display: flex; }
-
-    .modal {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 16px 16px 0 0;
-      padding: 24px;
-      width: 100%;
-      max-width: 480px;
-    }
-
-    .modal h2 { font-size: 16px; margin-bottom: 16px; }
-
-    .modal input, .modal select {
-      width: 100%;
-      background: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      color: #e6edf3;
-      font-size: 14px;
-      padding: 10px 12px;
-      margin-bottom: 10px;
-      outline: none;
-    }
-
-    .modal input:focus, .modal select:focus {
-      border-color: #58a6ff;
-    }
-
-    .modal-btns {
-      display: flex;
-      gap: 10px;
-      margin-top: 4px;
-    }
-
-    .btn-primary {
-      flex: 1;
-      background: #238636;
-      border: none;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 12px;
-      cursor: pointer;
-    }
-
-    .btn-primary:active { background: #1a6e2a; }
-
-    .btn-cancel {
-      flex: 1;
-      background: transparent;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      color: #8b949e;
-      font-size: 14px;
-      padding: 12px;
-      cursor: pointer;
-    }
-
-    .export-btn {
-      width: 100%;
-      background: transparent;
-      border: 1px solid #21262d;
-      border-radius: 8px;
-      color: #8b949e;
-      padding: 10px;
-      font-size: 12px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .export-btn:hover { border-color: #8b949e; color: #e6edf3; }
-
-    .delete-habit {
-      position: absolute;
-      bottom: 8px;
-      right: 10px;
-      font-size: 14px;
-      color: #8b949e;
-      cursor: pointer;
-      display: none;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-
-    .habit-btn:hover .delete-habit { display: block; }
-  </style>
+/* Modals */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.8); z-index: 300;
+  align-items: flex-end; justify-content: center;
+}
+.overlay.open { display: flex; }
+.modal {
+  background: #161b22; border: 1px solid #30363d;
+  border-radius: 16px 16px 0 0; padding: 20px;
+  width: 100%; max-width: 480px;
+  max-height: 88vh; overflow-y: auto;
+}
+.mtitle { font-size: 15px; font-weight: 600; margin-bottom: 14px; }
+.flbl { font-size: 11px; color: #8b949e; margin-bottom: 5px; display: block; }
+.finput {
+  width: 100%; background: #0d1117;
+  border: 1px solid #30363d; border-radius: 8px;
+  color: #e6edf3; font-size: 14px; padding: 9px 11px;
+  margin-bottom: 11px; outline: none; font-family: inherit;
+}
+.finput:focus { border-color: #58a6ff; }
+select.finput { cursor: pointer; }
+.pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 11px; }
+.pill {
+  background: #21262d; border: 1px solid #30363d;
+  border-radius: 20px; color: #8b949e;
+  font-size: 12px; padding: 5px 11px; cursor: pointer;
+}
+.pill.on { background: #0a2e18; border-color: #39d353; color: #39d353; }
+.pill.on.blue { background: #0c2340; border-color: #58a6ff; color: #58a6ff; }
+.pill.on.yellow { background: #2a1f00; border-color: #d29922; color: #d29922; }
+.pill.on.red { background: #2d0e0e; border-color: #f85149; color: #f85149; }
+.tgl-row { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; }
+.tgl-lbl { font-size: 13px; }
+.tgl {
+  width: 40px; height: 22px; background: #30363d;
+  border-radius: 11px; position: relative;
+  cursor: pointer; transition: background .2s; flex-shrink: 0;
+}
+.tgl.on { background: #238636; }
+.tgl::after {
+  content: ''; position: absolute;
+  width: 18px; height: 18px; background: #fff;
+  border-radius: 50%; top: 2px; left: 2px;
+  transition: left .2s;
+}
+.tgl.on::after { left: 20px; }
+.approach-hint {
+  background: #0d1117; border: 1px solid #30363d;
+  border-radius: 8px; padding: 10px 12px;
+  font-size: 12px; color: #8b949e; margin-bottom: 11px;
+}
+.approach-hint strong { color: #e6edf3; font-size: 13px; }
+.mbtns { display: flex; gap: 10px; margin-top: 4px; }
+.mbtn-ok {
+  flex: 1; background: #238636; border: none;
+  border-radius: 8px; color: #fff;
+  font-size: 14px; font-weight: 600; padding: 12px; cursor: pointer;
+}
+.mbtn-cancel {
+  flex: 1; background: transparent;
+  border: 1px solid #30363d; border-radius: 8px;
+  color: #8b949e; font-size: 14px; padding: 12px; cursor: pointer;
+}
+.divider { height: 1px; background: #21262d; margin: 12px 0; }
+</style>
 </head>
 <body>
 
-<header>
-  <div>
-    <div class="date" id="dateDisplay"></div>
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="date" id="dateDisp"></div>
     <h1>Streaks</h1>
   </div>
-</header>
+  <button class="notif-btn" onclick="askNotifPerm()" title="Enable notifications">🔔</button>
+</div>
 
 <div class="stats">
-  <div class="stat-box">
-    <div class="stat-number" id="statToday">0/0</div>
-    <div class="stat-label">Today</div>
-  </div>
-  <div class="stat-box">
-    <div class="stat-number" id="statStreak">0</div>
-    <div class="stat-label">Best streak</div>
-  </div>
-  <div class="stat-box">
-    <div class="stat-number" id="statDays">0</div>
-    <div class="stat-label">Days logged</div>
-  </div>
+  <div class="stat"><div class="stat-n" id="sToday">0/0</div><div class="stat-l">Today</div></div>
+  <div class="stat"><div class="stat-n" id="sStreak">0</div><div class="stat-l">Best streak</div></div>
+  <div class="stat"><div class="stat-n" id="sDays">0</div><div class="stat-l">Days logged</div></div>
 </div>
 
-<div class="section-title">Today</div>
-<div class="habits-grid" id="habitsGrid"></div>
-<button class="add-btn" onclick="openModal()">+ Add habit</button>
+<div class="tabs">
+  <button class="tab on" onclick="switchTab('today',this)">Today</button>
+  <button class="tab" onclick="switchTab('todos',this)">Todos</button>
+  <button class="tab" onclick="switchTab('year',this)">Year</button>
+</div>
 
-<div class="heatmap-section">
-  <div class="section-title" style="margin-top:24px">This year</div>
+<!-- TODAY -->
+<div class="pane on" id="pToday">
+  <div class="sec-lbl">Habits</div>
+  <div class="hgrid" id="hgrid"></div>
+  <button class="add-btn" onclick="openHabitModal()">+ Add habit</button>
+</div>
+
+<!-- TODOS -->
+<div class="pane" id="pTodos">
+  <div class="sec-lbl">Tasks</div>
+  <div class="todo-list" id="todoList"></div>
+  <button class="add-todo-btn" onclick="openTodoModal()">+ Add task</button>
+</div>
+
+<!-- YEAR -->
+<div class="pane" id="pYear">
+  <div class="sec-lbl">This year</div>
   <div class="heatmap" id="heatmap"></div>
+  <button class="export-btn" onclick="exportCSV()">&#8595; Export as CSV</button>
 </div>
 
-<button class="export-btn" onclick="exportData()">&#8595; Export data as JSON</button>
-
-<!-- Add Habit Modal -->
-<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+<!-- HABIT MODAL -->
+<div class="overlay" id="habitModal" onclick="closeIfOverlay(event,'habitModal')">
   <div class="modal">
-    <h2>New habit</h2>
-    <input type="text" id="habitName" placeholder="Name  (e.g. Exercise)" />
-    <input type="text" id="habitIcon" placeholder="Emoji (e.g. 💪) — optional" />
-    <select id="habitType">
-      <option value="boolean">Checkmark only — done or not done</option>
-      <option value="number">Number — reps, pages, minutes...</option>
-      <option value="time">Time — e.g. wake up, sleep time</option>
+    <div class="mtitle">New habit</div>
+    <label class="flbl">Name</label>
+    <input class="finput" id="hName" placeholder="e.g. Meditation" />
+    <label class="flbl">Emoji icon</label>
+    <input class="finput" id="hIcon" placeholder="e.g. 🧘" />
+    <label class="flbl">Type</label>
+    <select class="finput" id="hType" onchange="onHabitTypeChange()">
+      <option value="boolean">Checkmark — done or not done</option>
+      <option value="number">Number — reps, pages, hrs...</option>
+      <option value="counter">Counter — tap to add (+1 each tap)</option>
+      <option value="time_range">Time range — start &amp; end time</option>
+      <option value="text_note">Note — checkbox + written note</option>
+      <option value="reminder">Reminder — shows message, tap to dismiss</option>
     </select>
-    <input type="text" id="habitUnit" placeholder="Unit label (e.g. reps) — for number type" />
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-      <button class="btn-primary" onclick="addHabit()">Add habit</button>
+    <div id="hUnitRow">
+      <label class="flbl">Unit label (e.g. reps, hrs)</label>
+      <input class="finput" id="hUnit" placeholder="unit" />
+    </div>
+    <div id="hRangeRow" style="display:none">
+      <label class="flbl">Label for start time</label>
+      <input class="finput" id="hRangeA" placeholder="e.g. Slept at" />
+      <label class="flbl">Label for end time</label>
+      <input class="finput" id="hRangeB" placeholder="e.g. Woke at" />
+    </div>
+    <div id="hNoteRow" style="display:none">
+      <label class="flbl">Prompt (shown inside card)</label>
+      <input class="finput" id="hNotePrompt" placeholder="e.g. What did you learn?" />
+    </div>
+    <div id="hReminderRow" style="display:none">
+      <label class="flbl">Reminder message</label>
+      <input class="finput" id="hReminderMsg" placeholder="e.g. Time to pay Beth" />
+    </div>
+    <label class="flbl">Frequency</label>
+    <div class="pills" id="freqPills">
+      <div class="pill on" onclick="selPill(this,'freqPills')">Daily</div>
+      <div class="pill" onclick="selPill(this,'freqPills')">Weekly</div>
+      <div class="pill" onclick="selPill(this,'freqPills')">Bi-weekly</div>
+    </div>
+    <div class="mbtns">
+      <button class="mbtn-cancel" onclick="closeModal('habitModal')">Cancel</button>
+      <button class="mbtn-ok" onclick="addHabit()">Add habit</button>
+    </div>
+  </div>
+</div>
+
+<!-- TODO MODAL -->
+<div class="overlay" id="todoModal" onclick="closeIfOverlay(event,'todoModal')">
+  <div class="modal">
+    <div class="mtitle">New task</div>
+    <label class="flbl">Task</label>
+    <input class="finput" id="tTask" placeholder="What needs to be done?" />
+    <label class="flbl">Time needed</label>
+    <div class="pills" id="timePills">
+      <div class="pill on" onclick="selPill(this,'timePills');updateApproach()">15 min</div>
+      <div class="pill" onclick="selPill(this,'timePills');updateApproach()">1 hr</div>
+      <div class="pill" onclick="selPill(this,'timePills');updateApproach()">Half day</div>
+      <div class="pill" onclick="selPill(this,'timePills');updateApproach()">Full day</div>
+    </div>
+    <label class="flbl">Energy required</label>
+    <div class="pills" id="energyPills">
+      <div class="pill on" onclick="selPill(this,'energyPills');updateApproach()">⚡ Low</div>
+      <div class="pill" onclick="selPill(this,'energyPills');updateApproach()" data-color="yellow">⚡⚡ Medium</div>
+      <div class="pill" onclick="selPill(this,'energyPills');updateApproach()" data-color="red">⚡⚡⚡ High</div>
+    </div>
+    <div class="tgl-row">
+      <div class="tgl" id="delegateTgl" onclick="this.classList.toggle('on');updateApproach()"></div>
+      <span class="tgl-lbl">Can this be delegated?</span>
+    </div>
+    <label class="flbl">Reminder (optional)</label>
+    <input class="finput" id="tReminder" type="datetime-local" />
+    <div class="approach-hint" id="approachHint">
+      Suggested: <strong id="approachText">Do it now</strong>
+    </div>
+    <div class="mbtns">
+      <button class="mbtn-cancel" onclick="closeModal('todoModal')">Cancel</button>
+      <button class="mbtn-ok" onclick="addTodo()">Add task</button>
     </div>
   </div>
 </div>
@@ -363,229 +431,483 @@
 <script>
 const KEY = 'streaks_v1';
 
+const DEFAULTS = [
+  {id:'h1',  name:'Sleep duration',   icon:'⏱️', type:'number',    unit:'hrs',     frequency:'daily'},
+  {id:'h2',  name:'Sleep & wake',     icon:'😴', type:'time_range',config:{a:'Slept at',b:'Woke at'}, frequency:'daily', full:true},
+  {id:'h3',  name:'Coffees',          icon:'☕', type:'counter',   unit:'cups',    frequency:'daily'},
+  {id:'h4',  name:'Sugary food',      icon:'🍬', type:'boolean',                   frequency:'daily'},
+  {id:'h5',  name:'GitHub commits',   icon:'💻', type:'number',    unit:'commits', frequency:'daily'},
+  {id:'h6',  name:'LinkedIn',         icon:'💼', type:'boolean',                   frequency:'weekly'},
+  {id:'h7',  name:'Screen time',      icon:'📱', type:'number',    unit:'hrs',     frequency:'daily'},
+  {id:'h8',  name:'Useful on phone',  icon:'✅', type:'boolean',                   frequency:'daily'},
+  {id:'h9',  name:'Learnt something', icon:'🧠', type:'text_note', config:{prompt:'What did you learn today?'}, frequency:'daily'},
+  {id:'h10', name:'Weekly revision',  icon:'📖', type:'boolean',                   frequency:'weekly'},
+  {id:'h11', name:'Trivial thing?',   icon:'🤔', type:'text_note', config:{prompt:'What trivial thing could you have skipped today?'}, frequency:'daily'},
+  {id:'h12', name:'Pay Beth',         icon:'💸', type:'reminder',  config:{msg:'Time to pay Beth'}, frequency:'biweekly'},
+  {id:'h13', name:'Portfolio check',  icon:'📊', type:'boolean',                   frequency:'daily'},
+];
+
 function load() {
   const raw = localStorage.getItem(KEY);
-  if (raw) return JSON.parse(raw);
-  return {
-    habits: [
-      { id: '1', name: 'Prayer',   icon: '🤲', type: 'boolean' },
-      { id: '2', name: 'Exercise', icon: '💪', type: 'number', unit: 'reps' },
-      { id: '3', name: 'Reading',  icon: '📚', type: 'boolean' },
-      { id: '4', name: 'Sleep',    icon: '😴', type: 'time' }
-    ],
-    logs: {}
-  };
-}
-
-function save(data) {
-  localStorage.setItem(KEY, JSON.stringify(data));
-}
-
-function today() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function getStreak(data, habitId) {
-  let streak = 0;
-  const d = new Date();
-  while (true) {
-    const key = d.toISOString().slice(0, 10);
-    const log = (data.logs[key] || {})[habitId];
-    if (log && log.done) {
-      streak++;
-      d.setDate(d.getDate() - 1);
-    } else {
-      break;
-    }
+  if (raw) {
+    const d = JSON.parse(raw);
+    if (!d.todos) d.todos = [];
+    return d;
   }
-  return streak;
+  return {habits: JSON.parse(JSON.stringify(DEFAULTS)), logs: {}, todos: []};
+}
+function save(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
+function today() { return new Date().toISOString().slice(0,10); }
+
+function weekDates() {
+  const d = new Date();
+  const day = d.getDay() || 7;
+  const mon = new Date(d); mon.setDate(d.getDate() - day + 1);
+  const out = [];
+  for (let i = 0; i < 7; i++) {
+    const x = new Date(mon); x.setDate(mon.getDate() + i);
+    out.push(x.toISOString().slice(0,10));
+  }
+  return out;
 }
 
-function getBestStreak(data) {
+function isDone(data, h) {
+  const t = today();
+  if (h.frequency === 'weekly') {
+    return weekDates().some(d => data.logs[d]?.[h.id]?.done);
+  }
+  if (h.frequency === 'biweekly') {
+    for (let i = 0; i < 14; i++) {
+      const d = new Date(); d.setDate(d.getDate() - i);
+      const k = d.toISOString().slice(0,10);
+      if (data.logs[k]?.[h.id]?.done) return true;
+    }
+    return false;
+  }
+  return !!data.logs[t]?.[h.id]?.done;
+}
+
+function getLog(data, h) {
+  return data.logs[today()]?.[h.id] || {};
+}
+
+function getStreak(data, h) {
+  if (h.frequency !== 'daily') return 0;
+  let s = 0; const d = new Date();
+  while (true) {
+    const k = d.toISOString().slice(0,10);
+    if (data.logs[k]?.[h.id]?.done) { s++; d.setDate(d.getDate()-1); }
+    else break;
+  }
+  return s;
+}
+
+function bestStreak(data) {
   const dates = Object.keys(data.logs).sort();
   let best = 0, cur = 0, prev = null;
-  for (const date of dates) {
-    const anyDone = Object.values(data.logs[date]).some(v => v.done);
+  for (const dt of dates) {
+    const anyDone = Object.values(data.logs[dt]).some(v => v.done);
     if (!anyDone) { cur = 0; prev = null; continue; }
     if (prev) {
-      const p = new Date(prev);
-      p.setDate(p.getDate() + 1);
-      cur = p.toISOString().slice(0, 10) === date ? cur + 1 : 1;
-    } else {
-      cur = 1;
-    }
+      const p = new Date(prev); p.setDate(p.getDate()+1);
+      cur = p.toISOString().slice(0,10) === dt ? cur+1 : 1;
+    } else cur = 1;
     best = Math.max(best, cur);
-    prev = date;
+    prev = dt;
   }
   return best;
 }
 
+// ── Render ──────────────────────────────────────────────────
 function render() {
   const data = load();
   const t = today();
-  const todayLog = data.logs[t] || {};
 
-  document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('en-US', {
-    weekday: 'long', month: 'long', day: 'numeric'
-  });
+  document.getElementById('dateDisp').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
 
   const total = data.habits.length;
-  const done = data.habits.filter(h => todayLog[h.id] && todayLog[h.id].done).length;
-  document.getElementById('statToday').textContent = done + '/' + total;
-  document.getElementById('statStreak').textContent = getBestStreak(data);
-  document.getElementById('statDays').textContent = Object.keys(data.logs).length;
+  const done = data.habits.filter(h => isDone(data, h)).length;
+  document.getElementById('sToday').textContent = done+'/'+total;
+  document.getElementById('sStreak').textContent = bestStreak(data);
+  document.getElementById('sDays').textContent = Object.keys(data.logs).length;
 
-  const grid = document.getElementById('habitsGrid');
-  grid.innerHTML = '';
-
-  data.habits.forEach(habit => {
-    const log = todayLog[habit.id] || {};
-    const isDone = !!log.done;
-    const streak = getStreak(data, habit.id);
-
-    const btn = document.createElement('div');
-    btn.className = 'habit-btn' + (isDone ? ' done' : '');
-
-    let valueHtml = '';
-    if (habit.type === 'number') {
-      valueHtml = `<div class="habit-value" onclick="event.stopPropagation()">
-        <input type="number" min="0" value="${log.value || ''}" placeholder="0"
-          onchange="saveVal('${habit.id}', this.value)"
-          onclick="event.stopPropagation()" />
-        <span class="unit-label">${habit.unit || ''}</span>
-      </div>`;
-    } else if (habit.type === 'time') {
-      valueHtml = `<div class="habit-value" onclick="event.stopPropagation()">
-        <input type="time" value="${log.value || ''}" style="width:90px"
-          onchange="saveVal('${habit.id}', this.value)"
-          onclick="event.stopPropagation()" />
-      </div>`;
-    }
-
-    btn.innerHTML = `
-      <span class="checkmark">&#10003;</span>
-      <button class="delete-habit" onclick="deleteHabit(event,'${habit.id}')">&#128465;</button>
-      <span class="habit-icon">${habit.icon || '&#9711;'}</span>
-      <span class="habit-name">${habit.name}</span>
-      <span class="habit-streak">${streak > 0 ? '&#128293; ' + streak + ' day streak' : 'Start today'}</span>
-      ${valueHtml}
-    `;
-
-    btn.addEventListener('click', () => toggle(habit.id));
-    grid.appendChild(btn);
-  });
-
+  renderHabits(data);
+  renderTodos(data);
   renderHeatmap(data);
 }
 
-function toggle(habitId) {
-  const data = load();
-  const t = today();
-  if (!data.logs[t]) data.logs[t] = {};
-  const cur = data.logs[t][habitId] || {};
-  data.logs[t][habitId] = { ...cur, done: !cur.done };
-  save(data);
-  render();
+function renderHabits(data) {
+  const grid = document.getElementById('hgrid');
+  grid.innerHTML = '';
+  data.habits.forEach(h => {
+    const done = isDone(data, h);
+    const log = getLog(data, h);
+    const streak = getStreak(data, h);
+
+    const card = document.createElement('div');
+    card.className = 'hcard' + (done ? ' done' : '') + (h.full ? ' full' : '') + (h.type === 'reminder' ? ' reminder-type' : '');
+    card.dataset.id = h.id;
+
+    let inner = `<span class="hck">&#10003;</span>`;
+    if (h.frequency !== 'daily') inner += `<span class="freq-tag">${h.frequency === 'weekly' ? 'weekly' : '2-week'}</span>`;
+    inner += `<span class="hicon">${h.icon||'○'}</span>`;
+    inner += `<span class="hname">${h.name}</span>`;
+
+    if (h.type === 'counter') {
+      const count = log.count || 0;
+      inner += `<span class="hsub">${done ? count+' '+( h.unit||'') : 'Tap to count'}</span>`;
+      inner += `<div class="ctr-row" onclick="event.stopPropagation()">
+        <button class="ctr-btn" onclick="adjustCounter('${h.id}',-1)">−</button>
+        <span class="ctr-val" id="cv_${h.id}">${count}</span>
+        <button class="ctr-btn" onclick="adjustCounter('${h.id}',1)">+</button>
+      </div>`;
+    } else if (h.type === 'number') {
+      inner += `<span class="hsub">${streak>0?'🔥 '+streak+' day streak':'Start today'}</span>`;
+      inner += `<div class="inp-row" onclick="event.stopPropagation()">
+        <input class="hinput n" type="number" min="0" step="any" value="${log.value||''}" placeholder="0"
+          onchange="saveVal('${h.id}',this.value)" onclick="event.stopPropagation()" />
+        <span class="ilbl">${h.unit||''}</span>
+      </div>`;
+    } else if (h.type === 'time_range') {
+      const a = (h.config||{}).a||'Start';
+      const b = (h.config||{}).b||'End';
+      inner += `<span class="hsub">${done ? (log.ta||'?')+' → '+(log.tb||'?') : 'Set times'}</span>`;
+      inner += `<div class="inp-row" onclick="event.stopPropagation()" style="flex-direction:column;align-items:flex-start;gap:5px">
+        <div style="display:flex;align-items:center;gap:5px">
+          <span class="ilbl">${a}</span>
+          <input class="hinput t" type="time" value="${log.ta||''}" onchange="saveTimeRange('${h.id}','ta',this.value)" onclick="event.stopPropagation()" />
+        </div>
+        <div style="display:flex;align-items:center;gap:5px">
+          <span class="ilbl">${b}</span>
+          <input class="hinput t" type="time" value="${log.tb||''}" onchange="saveTimeRange('${h.id}','tb',this.value)" onclick="event.stopPropagation()" />
+        </div>
+      </div>`;
+    } else if (h.type === 'text_note') {
+      const prompt = (h.config||{}).prompt||'Your note';
+      inner += `<span class="hsub">${streak>0?'🔥 '+streak+' day streak':'Start today'}</span>`;
+      inner += `<div class="note-wrap" onclick="event.stopPropagation()">
+        <div class="note-prompt">${prompt}</div>
+        <textarea class="note-ta" placeholder="Type here..." onchange="saveNote('${h.id}',this.value)" onclick="event.stopPropagation()">${log.note||''}</textarea>
+      </div>`;
+    } else if (h.type === 'reminder') {
+      const msg = (h.config||{}).msg||h.name;
+      inner += `<span class="hsub" style="color:#d29922">${done?'✓ Done':'Tap to dismiss'}</span>`;
+      inner += `<div style="font-size:11px;color:#8b949e;margin-top:6px">${msg}</div>`;
+    } else {
+      inner += `<span class="hsub">${streak>0?'🔥 '+streak+' day streak':'Start today'}</span>`;
+    }
+
+    card.innerHTML = inner;
+    if (h.type !== 'counter') {
+      card.addEventListener('click', () => toggleHabit(h.id));
+    }
+    grid.appendChild(card);
+  });
 }
 
-function saveVal(habitId, value) {
-  const data = load();
-  const t = today();
-  if (!data.logs[t]) data.logs[t] = {};
-  if (!data.logs[t][habitId]) data.logs[t][habitId] = { done: true };
-  data.logs[t][habitId].value = value;
-  save(data);
+function renderTodos(data) {
+  const list = document.getElementById('todoList');
+  list.innerHTML = '';
+  const active = data.todos.filter(t => t.status === 'pending');
+  const done = data.todos.filter(t => t.status !== 'pending');
+  [...active, ...done].forEach(todo => renderTodoCard(todo, list));
 }
 
-function deleteHabit(event, habitId) {
-  event.stopPropagation();
-  const data = load();
-  data.habits = data.habits.filter(h => h.id !== habitId);
-  save(data);
-  render();
+function renderTodoCard(todo, container) {
+  const ap = approach(todo);
+  const energyClass = {low:'el', medium:'em', high:'eh'}[todo.energy] || 'el';
+  const energyBadge = {low:'bdg-el', medium:'bdg-em', high:'bdg-eh'}[todo.energy] || 'bdg-el';
+  const energyLabel = {low:'⚡ Low energy', medium:'⚡⚡ Medium', high:'⚡⚡⚡ High'}[todo.energy] || '';
+  const isDone = todo.status !== 'pending';
+  const reminderStr = todo.reminder ? '🔔 ' + new Date(todo.reminder).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : '';
+
+  const card = document.createElement('div');
+  card.className = `tcard ${energyClass}${isDone?' tdone':''}`;
+  card.innerHTML = `
+    <div class="ttask">${todo.task}</div>
+    <div class="tbadges">
+      <span class="bdg bdg-t">${todo.timeEstimate}</span>
+      <span class="bdg ${energyBadge}">${energyLabel}</span>
+      ${todo.canDelegate ? '<span class="bdg bdg-d">👤 Delegatable</span>' : ''}
+    </div>
+    <span class="tapproach ${ap.cls}">${ap.label}</span>
+    ${reminderStr ? `<div class="treminder">${reminderStr}</div>` : ''}
+    ${!isDone ? `<div class="tactions">
+      <div class="tact done-act" onclick="updateTodo('${todo.id}','done')">✓ Done</div>
+      ${todo.canDelegate ? `<div class="tact del-act" onclick="updateTodo('${todo.id}','delegated')">👤 Delegate</div>` : ''}
+      <div class="tact drp-act" onclick="updateTodo('${todo.id}','dropped')">Drop</div>
+    </div>` : `<div style="font-size:11px;color:#8b949e;margin-top:4px">${todo.status === 'done' ? '✓ Completed' : todo.status === 'delegated' ? '👤 Delegated' : '🗑 Dropped'}</div>`}
+  `;
+  container.appendChild(card);
+}
+
+function approach(todo) {
+  if (todo.canDelegate) return {label:'👤 Delegate it', cls:'ap-del'};
+  if (todo.energy === 'low' && todo.timeEstimate === '15 min') return {label:'⚡ Do it now', cls:'ap-now'};
+  if (todo.energy === 'high' || todo.timeEstimate === 'Full day') return {label:'📅 Block focused time', cls:'ap-sch'};
+  if (todo.timeEstimate === 'Half day') return {label:'📅 Schedule it', cls:'ap-sch'};
+  return {label:'📅 Schedule it', cls:'ap-sch'};
 }
 
 function renderHeatmap(data) {
-  const heatmap = document.getElementById('heatmap');
-  heatmap.innerHTML = '';
+  const map = document.getElementById('heatmap');
+  map.innerHTML = '';
   const t = today();
-  const yearStart = t.slice(0, 4) + '-01-01';
-
-  const allDates = [];
-  const cur = new Date(yearStart);
-  const end = new Date(t);
-  while (cur <= end) {
-    allDates.push(cur.toISOString().slice(0, 10));
-    cur.setDate(cur.getDate() + 1);
-  }
-
-  const firstDow = new Date(yearStart).getDay();
-  const padded = Array(firstDow).fill(null).concat(allDates);
+  const yearStart = t.slice(0,4)+'-01-01';
+  const all = [];
+  const cur = new Date(yearStart), end = new Date(t);
+  while (cur <= end) { all.push(cur.toISOString().slice(0,10)); cur.setDate(cur.getDate()+1); }
+  const pad = Array(new Date(yearStart).getDay()).fill(null).concat(all);
   const total = data.habits.length || 1;
-
-  for (let i = 0; i < padded.length; i += 7) {
-    const week = padded.slice(i, i + 7);
-    const col = document.createElement('div');
-    col.className = 'heatmap-week';
-    week.forEach(date => {
-      const cell = document.createElement('div');
-      cell.className = 'heatmap-day';
-      if (date) {
-        if (date === t) cell.classList.add('today');
-        const log = data.logs[date] || {};
-        const doneCount = Object.values(log).filter(v => v.done).length;
-        const ratio = doneCount / total;
-        if (ratio > 0.75) cell.dataset.level = '4';
-        else if (ratio > 0.5) cell.dataset.level = '3';
-        else if (ratio > 0.25) cell.dataset.level = '2';
-        else if (ratio > 0) cell.dataset.level = '1';
-        cell.title = date + (doneCount ? ` — ${doneCount}/${total} done` : '');
-      } else {
-        cell.style.visibility = 'hidden';
-      }
+  for (let i = 0; i < pad.length; i += 7) {
+    const week = pad.slice(i, i+7);
+    const col = document.createElement('div'); col.className = 'hw';
+    week.forEach(dt => {
+      const cell = document.createElement('div'); cell.className = 'hd';
+      if (dt) {
+        if (dt === t) cell.classList.add('today');
+        const log = data.logs[dt] || {};
+        const n = Object.values(log).filter(v => v.done).length;
+        const r = n / total;
+        if (r > .75) cell.dataset.l = '4';
+        else if (r > .5) cell.dataset.l = '3';
+        else if (r > .25) cell.dataset.l = '2';
+        else if (r > 0) cell.dataset.l = '1';
+        cell.title = dt + (n ? ` — ${n}/${total}` : '');
+      } else cell.style.visibility = 'hidden';
       col.appendChild(cell);
     });
-    heatmap.appendChild(col);
+    map.appendChild(col);
   }
 }
 
-function openModal() {
-  document.getElementById('modal').classList.add('open');
-  document.getElementById('habitName').focus();
+// ── Actions ─────────────────────────────────────────────────
+function toggleHabit(id) {
+  const data = load();
+  const t = today();
+  if (!data.logs[t]) data.logs[t] = {};
+  const cur = data.logs[t][id] || {};
+  data.logs[t][id] = {...cur, done: !cur.done};
+  save(data); render();
 }
 
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-  ['habitName','habitIcon','habitUnit'].forEach(id => document.getElementById(id).value = '');
+function adjustCounter(id, delta) {
+  const data = load();
+  const t = today();
+  if (!data.logs[t]) data.logs[t] = {};
+  if (!data.logs[t][id]) data.logs[t][id] = {done: false, count: 0};
+  const newCount = Math.max(0, (data.logs[t][id].count || 0) + delta);
+  data.logs[t][id].count = newCount;
+  data.logs[t][id].done = newCount > 0;
+  save(data);
+  const cv = document.getElementById('cv_'+id);
+  if (cv) cv.textContent = newCount;
+  const card = document.querySelector(`.hcard[data-id="${id}"]`);
+  if (card) card.classList.toggle('done', newCount > 0);
 }
 
-function handleOverlayClick(e) {
-  if (e.target === document.getElementById('modal')) closeModal();
+function saveVal(id, value) {
+  const data = load();
+  const t = today();
+  if (!data.logs[t]) data.logs[t] = {};
+  if (!data.logs[t][id]) data.logs[t][id] = {done: true};
+  data.logs[t][id].value = value;
+  data.logs[t][id].done = value !== '' && value !== null;
+  save(data);
+}
+
+function saveTimeRange(id, field, value) {
+  const data = load();
+  const t = today();
+  if (!data.logs[t]) data.logs[t] = {};
+  if (!data.logs[t][id]) data.logs[t][id] = {done: false};
+  data.logs[t][id][field] = value;
+  data.logs[t][id].done = !!(data.logs[t][id].ta || data.logs[t][id].tb);
+  save(data);
+}
+
+function saveNote(id, note) {
+  const data = load();
+  const t = today();
+  if (!data.logs[t]) data.logs[t] = {};
+  if (!data.logs[t][id]) data.logs[t][id] = {done: true};
+  data.logs[t][id].note = note;
+  data.logs[t][id].done = note.trim() !== '';
+  save(data);
+}
+
+function updateTodo(id, status) {
+  const data = load();
+  const todo = data.todos.find(t => t.id === id);
+  if (todo) { todo.status = status; todo.doneAt = today(); }
+  save(data); renderTodos(data);
+}
+
+// ── Add habit ────────────────────────────────────────────────
+function onHabitTypeChange() {
+  const type = document.getElementById('hType').value;
+  document.getElementById('hUnitRow').style.display = ['number','counter'].includes(type) ? '' : 'none';
+  document.getElementById('hRangeRow').style.display = type === 'time_range' ? '' : 'none';
+  document.getElementById('hNoteRow').style.display = type === 'text_note' ? '' : 'none';
+  document.getElementById('hReminderRow').style.display = type === 'reminder' ? '' : 'none';
 }
 
 function addHabit() {
-  const name = document.getElementById('habitName').value.trim();
-  if (!name) { document.getElementById('habitName').focus(); return; }
-  const data = load();
-  data.habits.push({
+  const name = document.getElementById('hName').value.trim();
+  if (!name) { document.getElementById('hName').focus(); return; }
+  const type = document.getElementById('hType').value;
+  const freqPill = document.querySelector('#freqPills .pill.on');
+  const freq = freqPill ? freqPill.textContent.toLowerCase().replace('-','').replace(' ','') : 'daily';
+  const freqMap = {'daily':'daily','weekly':'weekly','biweekly':'biweekly'};
+
+  const habit = {
     id: Date.now().toString(),
     name,
-    icon: document.getElementById('habitIcon').value.trim() || '○',
-    type: document.getElementById('habitType').value,
-    unit: document.getElementById('habitUnit').value.trim()
-  });
-  save(data);
-  closeModal();
+    icon: document.getElementById('hIcon').value.trim() || '○',
+    type,
+    frequency: freqMap[freq] || 'daily',
+  };
+  if (type === 'number' || type === 'counter') habit.unit = document.getElementById('hUnit').value.trim();
+  if (type === 'time_range') habit.config = {a: document.getElementById('hRangeA').value||'Start', b: document.getElementById('hRangeB').value||'End'};
+  if (type === 'text_note') habit.config = {prompt: document.getElementById('hNotePrompt').value||'Your note'};
+  if (type === 'reminder') habit.config = {msg: document.getElementById('hReminderMsg').value||name};
+  if (type === 'time_range') habit.full = true;
+
+  const data = load();
+  data.habits.push(habit);
+  save(data); closeModal('habitModal');
+  ['hName','hIcon','hUnit','hRangeA','hRangeB','hNotePrompt','hReminderMsg'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('hType').value = 'boolean'; onHabitTypeChange();
   render();
 }
 
-function exportData() {
+// ── Add todo ─────────────────────────────────────────────────
+function addTodo() {
+  const task = document.getElementById('tTask').value.trim();
+  if (!task) { document.getElementById('tTask').focus(); return; }
+  const timePill = document.querySelector('#timePills .pill.on');
+  const energyPill = document.querySelector('#energyPills .pill.on');
+  const canDelegate = document.getElementById('delegateTgl').classList.contains('on');
+  const reminder = document.getElementById('tReminder').value;
+  const energyMap = {'⚡ Low':'low','⚡⚡ Medium':'medium','⚡⚡⚡ High':'high'};
+
+  const todo = {
+    id: Date.now().toString(),
+    task,
+    timeEstimate: timePill ? timePill.textContent : '15 min',
+    energy: energyPill ? (energyMap[energyPill.textContent] || 'low') : 'low',
+    canDelegate,
+    reminder: reminder || null,
+    status: 'pending',
+    createdAt: today(),
+    doneAt: null,
+  };
+
   const data = load();
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  data.todos.push(todo);
+  save(data);
+
+  if (reminder && Notification.permission === 'granted') scheduleReminder(todo);
+
+  closeModal('todoModal');
+  document.getElementById('tTask').value = '';
+  document.getElementById('tReminder').value = '';
+  document.getElementById('delegateTgl').classList.remove('on');
+  render();
+}
+
+// ── Notifications ────────────────────────────────────────────
+function askNotifPerm() {
+  if (!('Notification' in window)) { alert('Notifications not supported in this browser.'); return; }
+  Notification.requestPermission().then(p => {
+    if (p === 'granted') alert('Notifications enabled! You will get reminders when the app is open.');
+  });
+}
+
+function scheduleReminder(todo) {
+  const ms = new Date(todo.reminder).getTime() - Date.now();
+  if (ms <= 0) return;
+  setTimeout(() => {
+    new Notification(todo.task, {
+      body: approach(todo).label,
+      icon: '' // could add an icon here
+    });
+  }, ms);
+}
+
+// ── CSV Export ───────────────────────────────────────────────
+function exportCSV() {
+  const data = load();
+  const habitNames = Object.fromEntries(data.habits.map(h => [h.id, h.name]));
+  const rows = [['Date', 'Habit', 'Done', 'Value', 'Note']];
+  Object.entries(data.logs).sort().forEach(([date, dayLogs]) => {
+    Object.entries(dayLogs).forEach(([hid, log]) => {
+      const name = habitNames[hid] || hid;
+      const val = log.value || (log.ta ? log.ta+'→'+log.tb : '') || (log.count != null ? log.count : '') || '';
+      rows.push([date, name, log.done ? 'yes' : 'no', val, log.note || '']);
+    });
+  });
+  const todoCols = ['\n\nTodos', 'Task', 'Time', 'Energy', 'Can Delegate', 'Approach', 'Status', 'Created'];
+  rows.push(todoCols);
+  data.todos.forEach(t => {
+    rows.push(['', t.task, t.timeEstimate, t.energy, t.canDelegate?'yes':'no', approach(t).label.replace(/[^a-zA-Z ]/g,'').trim(), t.status, t.createdAt]);
+  });
+  const csv = rows.map(r => r.map(c => '"'+(String(c).replace(/"/g,'""'))+'"').join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'streaks-' + today() + '.json';
+  a.download = 'streaks-'+today()+'.csv';
   a.click();
+}
+
+// ── UI helpers ───────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+  btn.classList.add('on');
+  const paneMap = {today:'pToday', todos:'pTodos', year:'pYear'};
+  document.getElementById(paneMap[name]).classList.add('on');
+}
+
+function selPill(el, groupId) {
+  document.querySelectorAll(`#${groupId} .pill`).forEach(p => p.classList.remove('on','blue','yellow','red'));
+  el.classList.add('on');
+  const color = el.dataset.color;
+  if (color) el.classList.add(color);
+}
+
+function openHabitModal() {
+  onHabitTypeChange();
+  document.getElementById('habitModal').classList.add('open');
+  setTimeout(() => document.getElementById('hName').focus(), 100);
+}
+
+function openTodoModal() {
+  document.getElementById('todoModal').classList.add('open');
+  setTimeout(() => document.getElementById('tTask').focus(), 100);
+  updateApproach();
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function closeIfOverlay(e, id) {
+  if (e.target === document.getElementById(id)) closeModal(id);
+}
+
+function updateApproach() {
+  const timePill = document.querySelector('#timePills .pill.on');
+  const energyPill = document.querySelector('#energyPills .pill.on');
+  const canDelegate = document.getElementById('delegateTgl').classList.contains('on');
+  const energyMap = {'⚡ Low':'low','⚡⚡ Medium':'medium','⚡⚡⚡ High':'high'};
+  const fake = {
+    timeEstimate: timePill ? timePill.textContent : '15 min',
+    energy: energyPill ? (energyMap[energyPill.textContent]||'low') : 'low',
+    canDelegate,
+  };
+  const ap = approach(fake);
+  document.getElementById('approachText').textContent = ap.label;
 }
 
 render();
