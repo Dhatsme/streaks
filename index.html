@@ -451,7 +451,12 @@ const DEFAULTS = [
 
 function load() {
   const raw = localStorage.getItem(KEY);
-  if (raw) { const d = JSON.parse(raw); if (!d.todos) d.todos = []; return d; }
+  if (raw) {
+    const d = JSON.parse(raw);
+    if (!d.todos) d.todos = [];
+    if (!d.habits || d.habits.length === 0) d.habits = JSON.parse(JSON.stringify(DEFAULTS));
+    return d;
+  }
   return {habits: JSON.parse(JSON.stringify(DEFAULTS)), logs: {}, todos: []};
 }
 function save(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
@@ -548,7 +553,6 @@ function renderHabits(data) {
       inner += `<span class="hsub">${streak>0?'🔥 '+streak+' day streak':'Start today'}</span>`;
     }
     card.innerHTML = inner;
-    // Menu button
     const menu = document.createElement('button');
     menu.className = 'hmenu'; menu.textContent = '⋯';
     menu.onclick = e => { e.stopPropagation(); openHabitActions(h.id); };
@@ -672,7 +676,6 @@ function updateTodo(id,status) {
   save(data); renderTodos(data);
 }
 
-// ─ Habit actions (edit/delete) ──────────────────────────────────
 function openHabitActions(id) {
   _editHabitId = id;
   const data=load(), h=data.habits.find(x=>x.id===id);
