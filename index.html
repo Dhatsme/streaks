@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Streaks</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -330,7 +333,7 @@ select.finput { cursor: pointer; }
 <div class="pane" id="pYear">
   <div class="sec-lbl">This year</div>
   <div class="heatmap" id="heatmap"></div>
-  <button class="export-btn" onclick="exportCSV()">↓ Export as CSV</button>
+  <button class="export-btn" onclick="exportCSV()">&#8595; Export as CSV</button>
 </div>
 
 <!-- HABIT MODAL -->
@@ -448,7 +451,12 @@ const DEFAULTS = [
 
 function load() {
   const raw = localStorage.getItem(KEY);
-  if (raw) { const d = JSON.parse(raw); if (!d.todos) d.todos = []; return d; }
+  if (raw) {
+    const d = JSON.parse(raw);
+    if (!d.todos) d.todos = [];
+    if (!d.habits || d.habits.length === 0) d.habits = JSON.parse(JSON.stringify(DEFAULTS));
+    return d;
+  }
   return {habits: JSON.parse(JSON.stringify(DEFAULTS)), logs: {}, todos: []};
 }
 function save(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
@@ -522,22 +530,22 @@ function renderHabits(data) {
       inner += `<span class="hsub">${streak>0?'🔥 '+streak+' day streak':'Start today'}</span>`;
       inner += `<div class="inp-row" onclick="event.stopPropagation()">
         <input class="hinput n" type="number" min="0" step="any" value="${log.value||''}" placeholder="0"
-          onchange="saveVal('${h.id}',this.value)" onclick="event.stopPropagation()" />
+          onchange="saveVal('${h.id}',this.value)" />
         <span class="ilbl">${h.unit||''}</span></div>`;
     } else if (h.type === 'time_range') {
       const a=(h.config||{}).a||'Start', b=(h.config||{}).b||'End';
       inner += `<span class="hsub">${done?(log.ta||'?')+' → '+(log.tb||'?'):'Set times'}</span>`;
       inner += `<div class="inp-row" onclick="event.stopPropagation()" style="flex-direction:column;align-items:flex-start;gap:5px">
         <div style="display:flex;align-items:center;gap:5px"><span class="ilbl">${a}</span>
-          <input class="hinput t" type="time" value="${log.ta||''}" onchange="saveTimeRange('${h.id}','ta',this.value)" onclick="event.stopPropagation()" /></div>
+          <input class="hinput t" type="time" value="${log.ta||''}" onchange="saveTimeRange('${h.id}','ta',this.value)" /></div>
         <div style="display:flex;align-items:center;gap:5px"><span class="ilbl">${b}</span>
-          <input class="hinput t" type="time" value="${log.tb||''}" onchange="saveTimeRange('${h.id}','tb',this.value)" onclick="event.stopPropagation()" /></div></div>`;
+          <input class="hinput t" type="time" value="${log.tb||''}" onchange="saveTimeRange('${h.id}','tb',this.value)" /></div></div>`;
     } else if (h.type === 'text_note') {
       const prompt=(h.config||{}).prompt||'Your note';
       inner += `<span class="hsub">${streak>0?'🔥 '+streak+' day streak':'Start today'}</span>`;
       inner += `<div class="note-wrap" onclick="event.stopPropagation()">
         <div class="note-prompt">${prompt}</div>
-        <textarea class="note-ta" placeholder="Type here..." onchange="saveNote('${h.id}',this.value)" onclick="event.stopPropagation()">${log.note||''}</textarea></div>`;
+        <textarea class="note-ta" placeholder="Type here..." onchange="saveNote('${h.id}',this.value)">${log.note||''}</textarea></div>`;
     } else if (h.type === 'reminder') {
       inner += `<span class="hsub" style="color:#d29922">${done?'✓ Done':'Tap to dismiss'}</span>`;
       inner += `<div style="font-size:11px;color:#8b949e;margin-top:6px">${(h.config||{}).msg||h.name}</div>`;
@@ -545,7 +553,6 @@ function renderHabits(data) {
       inner += `<span class="hsub">${streak>0?'🔥 '+streak+' day streak':'Start today'}</span>`;
     }
     card.innerHTML = inner;
-    // Menu button
     const menu = document.createElement('button');
     menu.className = 'hmenu'; menu.textContent = '⋯';
     menu.onclick = e => { e.stopPropagation(); openHabitActions(h.id); };
@@ -669,7 +676,6 @@ function updateTodo(id,status) {
   save(data); renderTodos(data);
 }
 
-// ─ Habit actions (edit/delete) ──────────────────────────────────
 function openHabitActions(id) {
   _editHabitId = id;
   const data=load(), h=data.habits.find(x=>x.id===id);
